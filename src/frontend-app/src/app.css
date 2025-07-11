@@ -1,2 +1,9 @@
 @import 'tailwindcss';
 @plugin '@tailwindcss/forms';
+
+#menu{
+    background-color: rgb(25, 100, 55);
+}
+#rodadope{
+    background-color: rgb(25, 100, 55);
+}
