@@ -8,6 +8,45 @@
     <title>GreenCup</title>
 </head>
 <body>
+    <script>
+            document.querySelector('form').addEventListener('submit', async function(event) {
+            event.preventDefault(); // Evita recarregar a página
+        
+            const nome = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const senha = document.getElementById('senha').value;
+            const confirmar = document.getElementById('Confirmar').value;
+        
+            if (senha !== confirmar) {
+                alert('As senhas não coincidem.');
+                return;
+            }
+        
+            try {
+                const response = await fetch('http://localhost:3000/api/users', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        login: nome,
+                        email: email
+                        // Se quiser salvar a senha, adicione no backend e aqui também.
+                    })
+                });
+        
+                const data = await response.json();
+                if (response.ok) {
+                    alert('Usuário cadastrado com sucesso!');
+                } else {
+                    alert(`Erro: ${data.message}`);
+                }
+            } catch (error) {
+                console.error('Erro na requisição:', error);
+                alert('Erro ao tentar cadastrar. Tente novamente mais tarde.');
+            }
+        });
+        </script>
     
     <nav class="bg-white border-green-200 dark:bg-green-900">
         <div id="menu" class="flex flex-wrap items-center justify-between max-w-screen-2xl mx-auto p-4">
@@ -38,38 +77,64 @@
         </div>
     </nav>
     
-<section class="bg-center bg-no-repeat bg-[url('https://static.nationalgeographicbrasil.com/files/styles/image_3200/public/nationalgeographic_2174508.jpg?w=1600&h=884')] bg-gray-700 bg-blend-multiply">
-    <div class="px-4 mx-auto max-w-3/4 text-center py-24 lg:py-56">
-        <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-white md:text-5xl lg:text-6xl">Proteger a biodiversidade é o que nos une!</h1>
-        <p class="mb-8 text-lg font-normal text-gray-300 lg:text-xl sm:px-16 lg:px-48">O nosso objetivo é conscientizar, proteger e preservar a nossa fauna e flora brasileira. Abrace essa causa :)</p>
-
-    </div>
-</section>
-
-
-
-<div class="flex justify-center m-8 mx-15 w-4/5 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
-    <a href="#">
-        <img class="rounded-t-lg" src="" alt="" />
-    </a>
-    <div class="p-5">
-        <a href="#">
-            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Juntos pela Vida Selvagem: Protegendo a Fauna e a Flora do Brasil</h5>
-        </a>
-        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">O Brasil abriga uma das maiores biodiversidades do planeta, com ecossistemas únicos e espécies que só existem aqui. No entanto, essa riqueza natural está constantemente ameaçada pelo desmatamento, pela poluição e por ações humanas que colocam em risco o equilíbrio ambiental.
-
-            Nosso site é dedicado a apoiar ONGs comprometidas com a preservação da fauna e da flora brasileira. Aqui, conectamos pessoas apaixonadas pela natureza a projetos sérios que fazem a diferença. Ao doar, você ajuda na recuperação de áreas degradadas, no resgate de animais silvestres e na promoção de ações educativas que incentivam a conservação ambiental.
+    <nav class="bg-white border-green-200 dark:bg-green-900">
+        <div class="flex flex-wrap items-center justify-between max-w-screen-xl mx-auto p-4">
+            <a href="" class="flex items-center space-x-3 rtl:space-x-reverse">
+                <img src="vever.png" class="w-10 h-10 rounded-full" alt="The Green Cup Logo" />
+                <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">The Green Cup</span>
+            </a>
             
-            Junte-se a nós nessa missão! Cada contribuição é um passo em direção a um Brasil mais verde e sustentável. 🌿🐆🌎 Seja a mudança que o nosso planeta precisa!</p>
-        <a href="" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-            Leia mais
-             <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
-            </svg>
-        </a>
-    </div>
-</div>
+            <div id="mega-menu" class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1">
+                <ul class="flex flex-col mt-4 font-medium md:flex-row md:mt-0 md:space-x-8 rtl:space-x-reverse">
+                    <li>
+                        <a href="Sobre.html" class="block py-2 px-3 text-green-900 border-b border-green-100 hover:bg-green-50 md:hover:bg-transparent md:border-0 md:hover:text-green-600 md:p-0 dark:text-white md:dark:hover:text-green-500 dark:hover:bg-gray-700 dark:hover:text-green-500 md:dark:hover:bg-transparent dark:border-gray-700 md:w-1/4 lg:w-1/8">
+                        Sobre</a>
+                    </li>    
+                    <li>
+                        <a href="Noticias.html" class="block py-2 px-3 text-green-900 border-b border-green-100 hover:bg-green-50 md:hover:bg-transparent md:border-0 md:hover:text-green-600 md:p-0 dark:text-white md:dark:hover:text-green-500 dark:hover:bg-gray-700 dark:hover:text-green-500 md:dark:hover:bg-transparent dark:border-gray-700 md:w-1/4 lg:w-1/8">
+                        Noticias</a>
+                    </li> 
+                    <li>
+                        <a href="Doacoes.html" class="block py-2 px-3 text-green-900 border-b border-green-100 hover:bg-green-50 md:hover:bg-transparent md:border-0 md:hover:text-green-600 md:p-0 dark:text-white md:dark:hover:text-green-500 dark:hover:bg-gray-700 dark:hover:text-green-500 md:dark:hover:bg-transparent dark:border-gray-700 md:w-1/4 lg:w-1/8">
+                        Doações</a>    
+                    </li>
+                    <li>
+                        <a href="/cadastro" class="block py-2 px-3 text-green-600 border-b border-gray-100 hover:bg-green-50 md:hover:bg-transparent md:border-0 md:hover:text-green-600 md:p-0 dark:text-green-500 md:dark:hover:text-green-500 dark:hover:bg-green-700 dark:hover:text-green-500 md:dark:hover:bg-transparent dark:border-green-700 md:w-1/4 lg:w-1/8"  aria-current="page">
+                        Cadastro</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
 
+<form class="max-w-sm mx-auto pt-6">
+    <div class="mb-5">
+        <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Nome:</label>
+        <input type="name" id="name" class="shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-xs-light" placeholder="Coloque o seu nome" required />
+      </div>
+    <div class="mb-5">
+      <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Seu email:</label>
+      <input type="email" id="email" class="shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-xs-light" placeholder="Coloque o seu email" required />
+    </div>
+    <div class="mb-5">
+      <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Sua senha:</label>
+      <input type="password" id="senha" class="shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-xs-light" placeholder="Senha" required />
+    </div>
+    <div class="mb-5">
+      <label for="repeat-password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Confirmar senha:</label>
+      <input type="password" id="Confirmar" class="shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-xs-light" placeholder="Confirmar senha" required />
+    </div>
+    <div class="flex items-start mb-5">
+      <div class="flex items-center h-5">
+        <input id="terms" type="checkbox" value="" class="w-4 h-4 border border-gray-300 rounded-sm bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800" required />
+      </div>
+      <label for="terms" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-500">Eu concordo com os <a href="termoscondicoes.html" class="text-blue-600 hover:underline dark:text-blue-500">termos e condições</a></label>
+      <label for="login" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-500">Já sou <a href="Login.html" class="text-blue-600 hover:underline dark:text-blue-500">Cadastrado</a></label>
+    </div>
+    <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Cadastrar usuário</button>
+  </form>
+  
 
 <footer id="rodadope" class="bottom-0 left-0 z-20 w-full p-4 bg-white border-t border-green-600 shadow-sm md:flex md:items-center md:justify-between md:p-6 dark:bg-green-800 dark:border-green-600">
     <span class="text-sm text-white sm:text-center dark:text-gray-400">© 2025 <a href="Sobre.html" class="hover:underline">The Green cup™</a>. Todos os direitos reservados.
@@ -85,7 +150,7 @@
             <a href="Doacoes.html" class="hover:underline me-4 md:me-6">Doações</a>
         </li>
         <li>
-            <a href="Cadastro.html" class="hover:underline me-4 md:me-6">Cadastro</a>
+            <a href="/cadastro" class="hover:underline me-4 md:me-6">Cadastro</a>
         </li>
         <div class="sm:flex sm:items-center sm:justify-between">
             <div class="flex mt-4 sm:justify-center sm:mt-0">
