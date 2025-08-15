@@ -5,7 +5,7 @@
   
   <Menu />
    
-  <div class="text-center pt-32">
+  <div class=" text-center pt-32">
     <Heading tag="h1" class=" pb-4 text-4xl font-extrabold tracking-tight text-gray-900 dark:text-white">Sobre</Heading>
     <div class="mx-auto pt- flex justify-center-safe bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
       <a href="#">
