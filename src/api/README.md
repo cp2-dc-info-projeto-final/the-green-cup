@@ -22,6 +22,13 @@ Feito isso podemos instalar o banco de dados, que roda por padrão apenas na lin
 sudo apt install postgresql postgresql-contrib
 ```
 
+Caso tenha problemas com o SSL do laboratório de informática do Campus tente a opção abaixo
+
+```bash
+ sudo apt-get -q2 -y install --no-install-recommends -o Acquire::https::Verify-Peer=false postgresql postgresql-contrib
+```
+
+
 Verifique se está tudo certo checando a versão do `psql`.
 
 ```bash

@@ -1,6 +1,15 @@
 <script lang="ts">
 	import '../app.css';
-	let { children } = $props();
+	import Menu from '../components/Menu.svelte';
+  import Rodape from '../components/Rodape.svelte';
+  let { children } = $props();
 </script>
 
-{@render children()}
+
+<Menu />
+<div>
+  {@render children()}
+<Rodape />
+</div>
+
+
