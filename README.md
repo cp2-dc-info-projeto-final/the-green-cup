@@ -1,15 +1,16 @@
-# Nome do Meu Projeto
+# The Green Cup
 
 Projeto Final 2025 do Curso Técnico Integrado de Desenvolvimento de Sistemas - Colégio Pedro II - Campus Duque de Caxias
 
 **Integrantes:**
- - Fulana
- - Beltrano
- - Ciclano
+ - Pablo Einstein Campos de Sousa
+ - Luiz Felipe de Souza do Nascimento
+ - João Gabriel Reis Dias da Silva
+ - Matheus Lima Serra Ferreira Alves
 
  ## Tecnologias
 
-Este projeto é desenvolvido utilizando  para desenvolvimento da API de backend, SvelteKit como framework frontend e Tailwind como framework CSS.
+Este projeto é desenvolvido utilizando para desenvolvimento da API de backend, SvelteKit como framework frontend e Tailwind como framework CSS.
 
 Em termos de arquitetura de software, este projeto é composto por duas aplicações:
 - API/Backend desenvolvida em Node.js com Express
@@ -21,9 +22,7 @@ Para detalhes técnicos de como executar o projeto consulte o [README da API](sr
 
 ## Descrição do Projeto
 
-Nunc aliquet lobortis tristique. In pretium nisi vitae viverra venenatis. Ut iaculis sem quis arcu ornare interdum. In id condimentum arcu, sed ornare sem. Aliquam consequat at dolor eget sagittis. Praesent nec ante eget felis porttitor cursus eget suscipit urna. Sed consequat consectetur tristique.
-
-Sed sit amet ante sem. Nunc id sapien metus. Etiam lobortis in purus ut porta. Vestibulum at libero euismod felis feugiat tempus eu sagittis lorem. Vestibulum ultrices, mi euismod eleifend viverra, odio enim volutpat tortor, sed condimentum odio est id purus. Sed at leo vel ligula luctus bibendum in sed justo. Duis sodales consectetur vestibulum. Morbi libero quam, varius ac sodales eget, bibendum eu quam. In accumsan ac turpis vitae porttitor. Nulla eget velit in nisl vulputate sagittis. Phasellus ligula mi, viverra id vehicula nec, varius eget diam. Vestibulum id ultricies nulla, vel sagittis lorem. Sed aliquam dictum lacus quis maximus.
+O projeto The Green Cup servirá como uma central de notícias e doações para ONGs parceiras voltadas para a preservação e proteção da fauna e flora brasileira.
 
 ## Documentação
 
@@ -34,4 +33,4 @@ Sed sit amet ante sem. Nunc id sapien metus. Etiam lobortis in purus ut porta. V
 
 **Modelagem do Banco de Dados**
 
-![Diagrama de Banco de Dados](diagramas/diagrama-exemplo.png)
+![Diagrama de Banco de Dados](diagramas/diagrama.drawio)
