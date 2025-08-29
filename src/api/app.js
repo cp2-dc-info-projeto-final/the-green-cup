@@ -41,4 +41,10 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+app.get('/users', (req, res) => {
+  const search = req.query.search?.toLowerCase() || '';
+  const filteredUsers = allUsers.filter(u => u.login.toLowerCase().includes(search));
+  res.json({ success: true, data: filteredUsers });
+});
+
 module.exports = app;
