@@ -1,4 +1,7 @@
 <script lang="ts">
+  import { createEventDispatcher } from 'svelte';
+  const dispatch = createEventDispatcher();
+
   import { Table, TableHead, TableHeadCell, TableBody, TableBodyRow, TableBodyCell, Card } from 'flowbite-svelte';
   import ConfirmModal from './ConfirmModal.svelte';
   import { UserEditOutline, TrashBinOutline } from 'flowbite-svelte-icons';
@@ -41,17 +44,17 @@
   }
 
   async function handleDelete(id: number) {
-    deletingId = id;
-    error = '';
-    try {
-      await api.delete(`/users/${id}`);
-      users = users.filter(user => user.id !== id); // Atualiza localmente
-    } catch (e) {
-      error = 'Erro ao remover usuário.';
-    } finally {
-      deletingId = null;
-    }
+  deletingId = id;
+  error = '';
+  try {
+    await api.delete(`/users/${id}`);
+    dispatch('delete', id); // ← Emite evento pro pai
+  } catch (e) {
+    error = 'Erro ao remover usuário.';
+  } finally {
+    deletingId = null;
   }
+}
 
 </script>
 

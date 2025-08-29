@@ -35,6 +35,7 @@
   async function filtro(pesquisa: string) {
     erro = '';
     carregando = true;
+    alert("Quase lá!")
 
     try {
       const res = await fetch(`http://localhost:3000/users?search=${encodeURIComponent(pesquisa)}`);
@@ -62,11 +63,20 @@
     <Heading tag="h2" class="text-4xl font-extrabold tracking-tight text-gray-900 dark:text-white">
       Usuários
     </Heading>
-    <div>
-      <div class="flex gap-2">
-        <Search placeholder="Pesquisar" bind:value={pesquisa} />
-        <Button on:click={() => filtro(pesquisa)}>Pesquisar</Button>
-      </div>
+    <div class="flex gap-2">
+      <input
+        type="text"
+        class="border rounded px-3 py-2"
+        placeholder="Pesquisar"
+        bind:value={pesquisa}
+      />
+      <button
+        type="button"
+        on:click={() => filtro(pesquisa)}
+        class="px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white rounded-lg font-semibold shadow transition"
+      >
+        Pesquisar
+      </button>
     </div>
     <button class="flex items-center gap-2 px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white rounded-lg font-semibold shadow transition" on:click={() => goto('/users/new')}>
       <UserAddOutline class="w-5 h-5" />
@@ -78,6 +88,13 @@
     <div class="text-red-500 my-4">{erro}</div>
   {/if}
 
-  <!-- Passa a lista para o componente -->
-  <UsersTable {users} loading={carregando} error={erro} />
+  <UsersTable
+  {users}
+  loading={carregando}
+  error={erro}
+  on:delete={(e) => {
+    const id = e.detail;
+    users = users.filter(user => user.id !== id);
+  }}
+/>
 </div>
