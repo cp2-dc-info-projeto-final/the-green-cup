@@ -16,7 +16,8 @@
 
   export let users: User[] = [];
   export let loading: boolean = false;  // Recebe loading do pai
-  export let error: string = '';        // Recebe erro do pai
+  export let erro: string = '';        // Recebe erro do pai
+  let erroComponenteFilho = '';
 
   let deletingId: number | null = null;
   let confirmOpen = false;
@@ -45,12 +46,12 @@
 
   async function handleDelete(id: number) {
   deletingId = id;
-  error = '';
+  erroComponenteFilho = '';
   try {
     await api.delete(`/users/${id}`);
     dispatch('delete', id); // ← Emite evento pro pai
   } catch (e) {
-    error = 'Erro ao remover usuário.';
+    erroComponenteFilho = 'Erro ao remover usuário.';
   } finally {
     deletingId = null;
   }
@@ -60,8 +61,10 @@
 
 {#if loading}
   <div class="my-8 text-center text-gray-500">Carregando usuários...</div>
-{:else if error}
-  <div class="my-4 text-red-500 text-center">{error}</div>
+{:else if erroComponenteFilho}
+  <div class="my-4 text-red-500 text-center">{erroComponenteFilho}</div>
+{:else if erro}
+  <div> class="my-4 text-red-500 text-center"{erro}</div> 
 {:else if users.length === 0}
   <div class="my-8 text-center text-gray-500">Nenhum usuário encontrado.</div>
 {:else}

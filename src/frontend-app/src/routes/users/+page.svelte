@@ -1,10 +1,13 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { Heading } from 'flowbite-svelte';
+  import { Heading, P, ImagePlaceholder } from "flowbite-svelte";
   import UsersTable from '../../components/UsersTable.svelte';
   import { UserAddOutline } from 'flowbite-svelte-icons';
   import { goto } from '$app/navigation';
   import { Search, Button } from 'flowbite-svelte';
+  import Menu from '../../components/Menu.svelte';
+
+
 
   let users = [];
   let erro = '';
@@ -35,7 +38,6 @@
   async function filtro(pesquisa: string) {
     erro = '';
     carregando = true;
-    alert("Quase lá!")
 
     try {
       const res = await fetch(`http://localhost:3000/users?search=${encodeURIComponent(pesquisa)}`);
@@ -57,6 +59,8 @@
     }
   }
 </script>
+
+<Menu />
 
 <div class="text-center p-8 pt-32">
   <div class="flex items-center justify-between max-w-3xl mx-auto mb-6">
