@@ -57,41 +57,42 @@
     goto('/users');
   }
 </script>
-
-<!-- Card do formulário -->
-<Card class="max-w-md mx-auto mt-10 p-0 overflow-hidden shadow-lg border border-gray-200 rounded-lg">
-  <!-- Formulário principal -->
-  <form class="flex flex-col gap-6 p-6" on:submit|preventDefault={handleSubmit}>
-    <!-- Título -->
-    <Heading tag="h3" class="mb-2 text-center">
-      {id === null ? 'Cadastrar Usuário' : 'Editar Usuário'}
-    </Heading>
-    <!-- Mensagem de erro -->
-    {#if error}
-      <div class="text-red-500 text-center">{error}</div>
-    {/if}
-    <!-- Campo login -->
-    <div>
-      <Label for="login">Login</Label>
-      <Input id="login" bind:value={user.login} placeholder="Digite o login" required class="mt-1" />
-    </div>
-    <!-- Campo email -->
-    <div>
-      <Label for="email">Email</Label>
-      <Input id="email" type="email" bind:value={user.email} placeholder="Digite o e-mail" required class="mt-1" />
-    </div>
-    <!-- Botões de ação -->
-    <div class="flex gap-4 justify-end mt-4">
-      <!-- Botão cancelar/voltar -->
-      <Button color="light" type="button" onclick={handleCancel} disabled={loading}>
-        <ArrowLeftOutline class="inline w-5 h-5 mr-2 align-text-bottom" />
-        {id === null ? 'Voltar' : 'Cancelar'}
-      </Button>
-      <!-- Botão salvar -->
-      <Button type="submit" color="primary" disabled={loading}>
-        <FloppyDiskAltOutline class="inline w-5 h-5 mr-2 align-text-bottom" />
-        {id === null ? 'Cadastrar' : 'Salvar'}
-      </Button>
-    </div>
-  </form>
-</Card>
+<div class="pt-15">
+  <!-- Card do formulário -->
+  <Card class="max-w-md mx-auto mt-10 overflow-hidden shadow-lg border border-gray-200 rounded-lg">
+    <!-- Formulário principal -->
+    <form class="flex flex-col gap-6 p-6" on:submit|preventDefault={handleSubmit}>
+      <!-- Título -->
+      <Heading tag="h3" class="mb-2 text-center">
+        {id === null ? 'Cadastrar Usuário' : 'Editar Usuário'}
+      </Heading>
+      <!-- Mensagem de erro -->
+      {#if error}
+        <div class="text-red-500 text-center">{error}</div>
+      {/if}
+      <!-- Campo login -->
+      <div>
+        <Label for="login">Login</Label>
+        <Input id="login" bind:value={user.login} placeholder="Digite o login" required class="mt-1" />
+      </div>
+      <!-- Campo email -->
+      <div>
+        <Label for="email">Email</Label>
+        <Input id="email" type="email" bind:value={user.email} placeholder="Digite o e-mail" required class="mt-1" />
+      </div>
+      <!-- Botões de ação -->
+      <div class="flex gap-4 justify-end mt-4">
+        <!-- Botão cancelar/voltar -->
+        <Button color="light" type="button" onclick={handleCancel} disabled={loading}>
+          <ArrowLeftOutline class="inline w-5 h-5 mr-2 align-text-bottom" />
+          {id === null ? 'Voltar' : 'Cancelar'}
+        </Button>
+        <!-- Botão salvar -->
+        <Button type="submit" color="primary" disabled={loading}  class="px-4 py-2 bg-green-700 transition delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110 hover:bg-green-600 text-white rounded-lg font-semibold shadow transition" >
+          <FloppyDiskAltOutline class="inline w-5 h-5 mr-2 align-text-bottom" />
+          {id === null ? 'Cadastrar' : 'Salvar'}
+        </Button>
+      </div>
+    </form>
+  </Card>
+</div>
