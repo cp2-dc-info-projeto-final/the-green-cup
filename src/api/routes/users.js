@@ -5,10 +5,20 @@ const pool = require('../db/config');
 /* GET - Buscar todos os usuários */
 router.get('/', async function(req, res, next) {
   try {
-    const result = await pool.query('SELECT * FROM usuario ORDER BY id');
+    const { search } = req.query;
+    let busca = 'SELECT * FROM usuario';
+    let parametros = [];
+
+    if(search)
+    {
+      busca += ' WHERE login LIKE $1';
+      parametros.push('%' + search + '%');
+    }
+    busca += ' ORDER BY id';
+    const result = await pool.query(busca, parametros);
     res.json({
-      success: true,
-      data: result.rows
+        success: true,
+        data: result.rows
     });
   } catch (error) {
     console.error('Erro ao buscar usuários:', error);
