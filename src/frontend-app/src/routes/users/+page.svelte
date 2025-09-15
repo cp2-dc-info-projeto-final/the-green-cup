@@ -81,9 +81,8 @@
           Pesquisar
         </button>
       </div>
-        <div class="row-start-1 row-end-4 gap-2">
+        <div class="row-start-1 row-end-4 gap-2 p-4">
         <button class="gap-2 px-4 py-2  bg-green-700 transition delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110 hover:bg-green-600 text-white rounded-lg font-semibold" on:click={() => goto('/users/new')}>
-          <UserAddOutline />
           Adicionar
         </button>
         </div>

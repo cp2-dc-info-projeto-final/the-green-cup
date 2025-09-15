@@ -204,6 +204,126 @@ curl -X DELETE http://localhost:3000/users/3
 ```
 
 
+## Sistema de Autenticação
 
+O backend implementa um sistema de autenticação baseado em **JWT (JSON Web Tokens)** com controle de acesso por roles. O sistema é composto por middlewares de autenticação e rotas específicas para gerenciamento de usuários.
 
+### Componentes do Sistema
 
+**Middlewares de Autenticação (`middlewares/auth.js`)**
+- `verifyToken`: Verifica se o token JWT é válido
+- `isAdmin`: Verifica se o usuário possui privilégios de administrador
+
+**Rotas de Autenticação (`routes/users.js`)**
+- `POST /users/new`: Criação de novos usuários
+- `POST /users/login`: Autenticação de usuários
+- `GET /users/me`: Dados do usuário autenticado
+
+### Fluxo de Autenticação
+
+#### 1. Criação de Usuário
+```bash
+curl -X POST http://localhost:3000/users/new \
+  -H "Content-Type: application/json" \
+  -d '{"login":"usuario123","email":"usuario@email.com","senha":"minhasenha"}'
+```
+
+**Resposta:**
+```json
+{
+  "success": true,
+  "message": "Usuário criado com sucesso",
+  "data": {
+    "id": 3,
+    "login": "usuario123",
+    "email": "usuario@email.com"
+  }
+}
+```
+
+#### 2. Login
+```bash
+curl -X POST http://localhost:3000/users/login \
+  -H "Content-Type: application/json" \
+  -d '{"login":"usuario123","password":"minhasenha"}'
+```
+
+**Resposta:**
+```json
+{
+  "success": true,
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "message": "Autenticado com sucesso!"
+}
+```
+
+#### 3. Acessar Dados do Usuário Logado
+```bash
+curl -X GET http://localhost:3000/users/me \
+  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+```
+
+**Resposta:**
+```json
+{
+  "success": true,
+  "data": {
+    "id": 3,
+    "login": "usuario123",
+    "email": "usuario@email.com"
+  }
+}
+```
+
+### Rotas Protegidas
+
+As seguintes rotas requerem autenticação e privilégios de administrador:
+
+```bash
+# Listar todos os usuários (requer admin)
+curl -X GET http://localhost:3000/users \
+  -H "Authorization: Bearer <token>"
+
+# Buscar usuário por ID (requer admin)
+curl -X GET http://localhost:3000/users/1 \
+  -H "Authorization: Bearer <token>"
+
+# Atualizar usuário (requer admin)
+curl -X PUT http://localhost:3000/users/1 \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer <token>" \
+  -d '{"login":"novo_login","email":"novo@email.com"}'
+
+# Deletar usuário (requer admin)
+curl -X DELETE http://localhost:3000/users/1 \
+  -H "Authorization: Bearer <token>"
+```
+
+### Segurança Implementada
+
+- **Hash de Senhas**: Utiliza `bcrypt` com salt rounds = 10
+- **JWT**: Tokens com expiração de 1 hora
+- **Validação de Entrada**: Verificação de campos obrigatórios
+- **Controle de Acesso**: Separação entre usuários comuns e administradores
+- **Proteção de Dados**: Senhas nunca retornadas nas respostas
+- **Tratamento de Erros**: Mensagens padronizadas sem exposição de dados sensíveis
+
+### Variáveis de Ambiente
+
+O sistema requer a variável `JWT_SECRET` configurada no arquivo `.env`:
+```env
+JWT_SECRET=sua_chave_secreta_super_segura_aqui
+```
+
+Recomenda-se gerar uma chave aleatória segura para a variável `JWT_SECRET` utilizando o comando `openssl rand -base64 32` ou outra opção similar
+
+### Códigos de Status HTTP
+
+- **200**: Sucesso
+- **201**: Criado com sucesso
+- **400**: Dados inválidos
+- **401**: Não autorizado (token inválido/ausente)
+- **403**: Acesso negado (sem privilégios)
+- **404**: Recurso não encontrado
+- **409**: Conflito (login já existe)
+- **500**: Erro interno do servidor (falha de conexão, no banco, bug, etc)
