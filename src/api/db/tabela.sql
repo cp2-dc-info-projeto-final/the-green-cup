@@ -1,8 +1,8 @@
 -- Active: 1752941682995@@127.0.0.1@5432@postgres
-DROP TABLE IF EXISTS usuario;
 DROP TABLE IF EXISTS noticias;
 DROP TABLE IF EXISTS ongs;
 DROP TABLE IF EXISTS comentario;
+DROP TABLE IF EXISTS usuario;
 CREATE TABLE usuario (
     id bigint GENERATED ALWAYS AS IDENTITY,
     nome text NOT NULL,
@@ -27,27 +27,36 @@ INSERT INTO usuario (nome, email, senha, role) VALUES
 ('zoroastra', 'zoroastra@email.com', '$2a$12$f2c.uHGHS4drfaz6HR870OLamkarD57kI.gkr4//Vbbp0vN9IrFfG', 'user');
 
 -- demais tabelas
-CREATE TABLE noticias(
-    id bigint GENERATED ALWAYS AS IDENTITY,
-    id_comentario FOREIGN KEY REFERENCES comentario(id),
-    manchete text NOT NULL,
-    data DATE NOT NULL,
-    imagem text NOT NULL,
-    views bigint,
-    autor text NOT NULL
-);
+
 CREATE TABLE ongs(
     id bigint GENERATED ALWAYS AS IDENTITY,
     nome text NOT NULL,
     link text NOT NULL,
     objetivo text NOT NULL,
-    imagem text NOT NULL
+    imagem text NOT NULL,
+
+    CONSTRAINT pk_ongs PRIMARY KEY (id)
 );
 CREATE TABLE comentario(
     id bigint GENERATED ALWAYS AS IDENTITY,
-    id_usuario NOT NULL integer FOREIGN KEY REFERENCES usuario(id),
+    id_usuario integer NOT NULL,
     data DATE NOT NULL,
-    like bigint,
+    likes bigint,
     deslike bigint,
-    texto text NOT NULL
+    texto text NOT NULL,
+    FOREIGN KEY (id_usuario) REFERENCES usuario(id),
+
+    CONSTRAINT pk_comentario PRIMARY KEY (id)
+);
+CREATE TABLE noticias(
+    id bigint GENERATED ALWAYS AS IDENTITY,
+    id_comentario integer,
+    manchete text NOT NULL,
+    data DATE NOT NULL,
+    imagem text NOT NULL,
+    views bigint,
+    autor text NOT NULL,
+    FOREIGN KEY (id_comentario) REFERENCES comentario(id),
+
+    CONSTRAINT pk_noticias PRIMARY KEY (id)
 );
