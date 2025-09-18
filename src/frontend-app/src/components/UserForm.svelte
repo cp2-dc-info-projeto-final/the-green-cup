@@ -10,11 +10,12 @@
 
   type User = {
     id: number;
-    login: string;
+    nome: string;
     email: string;
+    senha: string;
   };
 
-  let user: User = { id: 0, login: '', email: '' }; // dados do form
+  let user: User = { id: 0, nome: '', email: '', senha:'' }; // dados do form
   let loading = false;
   let error = '';
 
@@ -72,8 +73,8 @@
       {/if}
       <!-- Campo login -->
       <div>
-        <Label for="login">Login</Label>
-        <Input id="login" bind:value={user.login} placeholder="Digite o login" required class="mt-1" />
+        <Label for="nome">Login</Label>
+        <Input id="nome" bind:value={user.nome} placeholder="Digite o nome" required class="mt-1" />
       </div>
       <!-- Campo email -->
       <div>
