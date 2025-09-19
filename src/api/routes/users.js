@@ -171,7 +171,7 @@ router.post('/', verifyToken, isAdmin, async function(req, res) {
 
 
 /* POST - Autenticar usuário */
-router.post('/nome', async function(req, res) {
+router.post('/login', async function(req, res) {
   try {
     const { nome, password } = req.body;
     // obtém o usuário do banco de dados
