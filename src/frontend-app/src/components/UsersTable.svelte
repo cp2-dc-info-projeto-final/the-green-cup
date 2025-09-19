@@ -10,7 +10,7 @@
 
   type User = {
     id: number;
-    login: string;
+    nome: string;
     email: string;
   };
 
@@ -73,7 +73,7 @@
     <Table class="w-full max-w-3xl mx-auto my-8 shadow-lg border border-gray-200 rounded-lg">
       <TableHead>
         <TableHeadCell>ID</TableHeadCell>
-        <TableHeadCell>Login</TableHeadCell>
+        <TableHeadCell>Nome</TableHeadCell>
         <TableHeadCell>Email</TableHeadCell>
         <TableHeadCell></TableHeadCell>
       </TableHead>
@@ -81,7 +81,7 @@
         {#each users as user}
           <TableBodyRow>
             <TableBodyCell>{user.id}</TableBodyCell>
-            <TableBodyCell>{user.login}</TableBodyCell>
+            <TableBodyCell>{user.nome}</TableBodyCell>
             <TableBodyCell>{user.email}</TableBodyCell>
             <TableBodyCell>
               <button title="Editar" on:click={() => goto(`/users/edit/${user.id}`)}>
@@ -108,7 +108,7 @@
         <Card class="max-w-sm w-full p-0 overflow-hidden shadow-lg border border-gray-200">
           <div class="px-4 pt-4 pb-2 bg-gray-100 flex items-center justify-between">
             <div>
-              <div class="text-lg font-semibold text-gray-800">{user.login}</div>
+              <div class="text-lg font-semibold text-gray-800">{user.nome}</div>
               <div class="text-xs text-gray-400">ID: {user.id}</div>
             </div>
             <div class="flex gap-2">
