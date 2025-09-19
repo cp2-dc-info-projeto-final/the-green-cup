@@ -7,7 +7,14 @@
   import { Search, Button } from 'flowbite-svelte';
   import Menu from '../../components/Menu.svelte';
 
-
+  onMount(async () => {
+    const user = await getCurrentUser();
+    if (!user) {
+      goto('/login');
+    } else if (user.role !== 'admin') {
+      goto('/');
+    }
+  });
 
   let users = [];
   let erro = '';
