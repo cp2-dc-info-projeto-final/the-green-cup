@@ -2,16 +2,18 @@
   import { createEventDispatcher } from 'svelte';
   const dispatch = createEventDispatcher();
 
-  import { Table, TableHead, TableHeadCell, TableBody, TableBodyRow, TableBodyCell, Card } from 'flowbite-svelte';
+  import { Table, TableHead, TableHeadCell, TableBody, TableBodyRow, TableBodyCell, Card, Badge } from 'flowbite-svelte';
   import ConfirmModal from './ConfirmModal.svelte';
   import { UserEditOutline, TrashBinOutline } from 'flowbite-svelte-icons';
   import { goto } from '$app/navigation';
   import api from '$lib/api';
+  import { onMount } from 'svelte';
 
   type User = {
     id: number;
     nome: string;
     email: string;
+    role: string;
   };
 
   export let users: User[] = [];
@@ -57,6 +59,18 @@
   }
 }
 
+onMount(async () => {
+    try {
+      const res = await api.get('/users');
+      users = res.data.data;
+      console.log(users);
+    } catch (e: any) {
+      console.error('Erro ao carregar usuários:', e);
+      erroComponenteFilho = e.response?.data?.message || 'Erro ao carregar usuários';
+    } finally {
+      loading = false;
+    }
+  });
 </script>
 
 {#if loading}
@@ -72,10 +86,11 @@
   <div class="hidden lg:block">
     <Table class="w-full max-w-3xl mx-auto my-8 shadow-lg border border-gray-200 rounded-lg">
       <TableHead>
-        <TableHeadCell>ID</TableHeadCell>
-        <TableHeadCell>Nome</TableHeadCell>
-        <TableHeadCell>Email</TableHeadCell>
-        <TableHeadCell></TableHeadCell>
+        <TableHeadCell class="w-16">ID</TableHeadCell>
+        <TableHeadCell class="w-32">Nome</TableHeadCell>
+        <TableHeadCell class="min-w-0">Email</TableHeadCell>
+        <TableHeadCell class="w-20">Role</TableHeadCell>
+        <TableHeadCell class="w-24"></TableHeadCell>
       </TableHead>
       <TableBody>
         {#each users as user}
@@ -90,7 +105,7 @@
               <button
                 title="Remover"
                 on:click={() => openConfirm(user.id)}
-                disabled={deletingId === user.id}
+                disabled={deletingId === user.id || loading}
               >
                 <TrashBinOutline class="w-5 h-5 text-red-400" />
               </button>
@@ -118,7 +133,7 @@
               <button
                 title="Remover"
                 on:click={() => openConfirm(user.id)}
-                disabled={deletingId === user.id}
+                disabled={deletingId === user.id || loading}
               >
                 <TrashBinOutline class="w-5 h-5 text-red-400" />
               </button>

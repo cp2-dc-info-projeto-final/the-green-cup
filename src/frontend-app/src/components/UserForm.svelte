@@ -106,11 +106,23 @@
         <Label for="email">Email</Label>
         <Input id="email" type="email" bind:value={user.email} placeholder="Digite o e-mail" required class="mt-1" />
       </div>
-      <!-- Campo senha -->
-       <div>
-        <Label for="senha">Senha</Label>
-        <Input id="senha" type="password" bind:value={user.senha} placeholder="Digite a senha" required class="mt-1" />
-      </div>
+      <div>
+      <Label for="senha">Senha {id !== null ? '(deixe vazio para manter atual)' : ''}</Label>
+      <Input 
+        id="senha" 
+        type="password" 
+        bind:value={user.senha} 
+        placeholder={id === null ? 'Digite a senha (mínimo 8 caracteres)' : 'Nova senha (opcional)'} 
+        required={id === null}
+        minlength={8}
+        class="mt-1" 
+      />
+    </div>
+    <!-- Campo role -->
+    <div>
+      <Label for="role">Perfil</Label>
+      <Select id="role" bind:value={user.role} items={roleOptions} class="mt-1" />
+    </div>
       <!-- Botões de ação -->
       <div class="flex gap-4 justify-end mt-4">
         <!-- Botão cancelar/voltar -->
