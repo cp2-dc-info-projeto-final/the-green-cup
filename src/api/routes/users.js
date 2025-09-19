@@ -307,7 +307,7 @@ router.put('/:id', verifyToken, isAdmin, async function(req, res) {
       params = [nome, email, hashedPassword, role, id];
     } else {
       // Atualizar sem alterar senha
-      query = 'UPDATE usuario SET nome = $1, email = $2, role = $3 WHERE id = $4 RETURNING id, login, email, role';
+      query = 'UPDATE usuario SET nome = $1, email = $2, role = $3 WHERE id = $4 RETURNING id, nome, email, role';
       params = [nome, email, role, id];
     }
     

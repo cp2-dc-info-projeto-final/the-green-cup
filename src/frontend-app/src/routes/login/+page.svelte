@@ -49,7 +49,7 @@
     <Card class="p-6 w-full">
       <form on:submit|preventDefault={handleLogin} class="space-y-6">
           <div>
-            <Label for="nome" class="mb-2">nome</Label>
+            <Label for="nome" class="mb-2">Nome</Label>
             <Input
               id="nome"
               type="text"
