@@ -6,6 +6,7 @@
   import { goto } from '$app/navigation';
   import { Search, Button } from 'flowbite-svelte';
   import Menu from '../../components/Menu.svelte';
+  import { getCurrentUser } from '$lib/auth';
 
   onMount(async () => {
     const user = await getCurrentUser();
