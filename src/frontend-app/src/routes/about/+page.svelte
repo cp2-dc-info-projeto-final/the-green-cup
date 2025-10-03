@@ -5,7 +5,7 @@
 
     <div class=" text-center pt-32">
         <Heading tag="h1" class=" pb-4 text-4xl font-extrabold tracking-tight text-gray-900 dark:text-white">Sobre</Heading>
-        <div class="md:row-start-2 justify-center">
+        <div class=" md:row-start-2 justify-center">
             <img class="h-auto max-w-xl transition-all duration-300 rounded-lg shadow-xl dark:shadow-gray-800 cursor-pointer filter grayscale hover:grayscale-0" src="https://primeirapagina.com.br/wp-content/uploads/2024/12/Capivara-dormindo.jpg" alt="image description">
         </div>
             <div class="md:row-start-2 justify-center">
