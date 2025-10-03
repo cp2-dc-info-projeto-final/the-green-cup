@@ -1,5 +1,5 @@
 <script lang="ts">
-    import NewsForm from '../../../components/NewsForm.svelte';
+  import NewsForm from '../../../components/NewsForm.svelte';
 </script>
   
-  <NewsForm />
+<NewsForm />

@@ -44,7 +44,7 @@
     </div>
 </div>  
 
-<div class="pt-6">
+<!--<div class="pt-6">
     <div class="grid grid-cols-1 gap-4">
         <h1 class="pt-8 pb-4 text-4xl font-semibold font-mono tracking-tight text-gray-900 dark:text-white"> Últimas Notícias</h1>
     </div>
@@ -57,4 +57,4 @@
             <p class="mb-3 text-gray-500 dark:text-gray-400">A ONG Zoé é uma organização sem fins lucrativos que oferece apoio médico e psicológico a comunidades ribeirinhas e indígenas na Floresta Amazônica, com foco especial no estado do Pará.  Por meio de expedições que contam com médicos, enfermeiros e outros profissionais de saúde, a organização presta assistência a comunidades remotas, capacita agentes locais e investe em infraestrutura e equipamentos médico-hospitalares, visando estabelecer um suporte mais duradouro na área.</p>
         </div>
     </div>
-</div>
+</div>-->
