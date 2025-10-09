@@ -65,6 +65,7 @@
           {#if user.role === 'admin'} <!-- só exibe menu usuários para admin-->
       <NavLi href="/users" class="text-lg font-bold px-4 py-2 text-gray-300 dark:text-gray-400 hover:text-green-600 dark:hover:text-blue-500 rounded-lg rounded-lg">Usuários</NavLi>
       <NavLi href="/news/new" class="text-lg font-bold px-4 py-2 text-gray-300 dark:text-gray-400 hover:text-green-600 dark:hover:text-blue-500 rounded-lg rounded-lg">Cadastro de notícias</NavLi>
+      <NavLi href="/ongs" class="text-lg font-bold px-4 py-2 text-gray-300 dark:text-gray-400 hover:text-green-600 dark:hover:text-blue-500 rounded-lg rounded-lg">Ongs</NavLi>
           {/if}
           <NavLi>
             <div class="flex items-center">
@@ -81,7 +82,7 @@
         {/if}
       {:else}
         <!-- se não tem token, exibe botão de login-->
-        <NavLi href="/login" class="text-lg font-bold px-4 py-2 text-primary-500 dark:text-primary-400 hover:text-yellow-300 hover:bg-gray-700 focus:text-yellow-400 focus:bg-gray-700 transition-colors rounded-lg">Login</NavLi>
+        <NavLi href="/login" class="text-lg font-bold px-4 py-2 text-gray-300 dark:text-gray-400 hover:text-green-600 dark:hover:text-blue-500 rounded-lg">Login</NavLi>
       {/if}
     </NavUl>
   </Navbar>

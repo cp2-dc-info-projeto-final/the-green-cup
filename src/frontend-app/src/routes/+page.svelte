@@ -28,7 +28,7 @@
         <div class="col-start-1 col-end-1">
             <img src="//ongzoe.org/wp-content/uploads/2024/05/ong-zoe-2.png" alt="">   
         </div>
-        <div class="col-start-2 col-end-5">
+        <div class="col-start-2 col-end-5"> 
             <p ><a class="text-4xl font-semibold tracking-tight text-green-900 hover:text-green-700 dark:text-white" href="https://ongzoe.org/">ONG ZOÉ</a></p>
             <p class="mb-3 text-gray-500 dark:text-gray-400">A ONG Zoé é uma organização sem fins lucrativos que oferece apoio médico e psicológico a comunidades ribeirinhas e indígenas na Floresta Amazônica, com foco especial no estado do Pará.  Por meio de expedições que contam com médicos, enfermeiros e outros profissionais de saúde, a organização presta assistência a comunidades remotas, capacita agentes locais e investe em infraestrutura e equipamentos médico-hospitalares, visando estabelecer um suporte mais duradouro na área.</p>
         </div>
