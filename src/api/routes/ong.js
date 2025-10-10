@@ -24,7 +24,7 @@ router.get('/', async function(req, res, next) {
         data: result.rows
     });
   } catch (error) {
-    console.error('Erro ao buscar usuários:', error);
+    console.error('Erro ao buscar Ongs:', error);
     res.status(500).json({
       success: false,
       message: 'Erro interno do servidor'
@@ -120,7 +120,7 @@ router.post('/', verifyToken, isAdmin, async function(req, res) {
       });
     }
     
-    // Verificar se o login já existe
+    // Verificar se a ONG já existe
     const existingOng = await pool.query('SELECT id FROM ongs WHERE nome = $1', [nome]);
     if (existingOng.rows.length > 0) {
       return res.status(409).json({
@@ -134,9 +134,14 @@ router.post('/', verifyToken, isAdmin, async function(req, res) {
     if (existingLink.rows.length > 0) {
       return res.status(409).json({
         success: false,
-        message: 'Email já está em uso'
+        message: 'Link já está em uso.'
       });
     }
+
+    const result = await pool.query(
+      'INSERT INTO ongs (nome, link, objetivo, imagem) VALUES ($1, $2, $3, $4) RETURNING id, nome, link, objetivo, imagem',
+      [nome, link, objetivo, imagem]
+    );
 
     // http status 201 - Created
     res.status(201).json({
