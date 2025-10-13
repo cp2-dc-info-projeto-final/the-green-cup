@@ -84,40 +84,15 @@
     <div class="my-8 text-center text-gray-500">Nenhuma ong encontrada.</div>
   {:else}
     <!-- Tabela (desktop) -->
-    <div class="hidden lg:block">
-      <Table class="w-full max-w-3xl mx-auto my-8 shadow-lg border border-gray-200 rounded-lg">
-        <TableHead>
-          <TableHeadCell class="w-16">ID</TableHeadCell>
-          <TableHeadCell class="w-32">Nome</TableHeadCell>
-          <TableHeadCell class="min-w-0">Link</TableHeadCell>
-          <TableHeadCell class="w-20">Objetivo</TableHeadCell>
-          <TableHeadCell class="w-20">Imagem</TableHeadCell>
-          <TableHeadCell class="w-24"></TableHeadCell>
-        </TableHead>
-        <TableBody>
-          {#each ongs as ong}
-            <TableBodyRow>
-              <TableBodyCell>{ong.id}</TableBodyCell>
-              <TableBodyCell>{ong.nome}</TableBodyCell>
-              <TableBodyCell>{ong.link}</TableBodyCell>
-              <TableBodyCell>{ong.objetivo}</TableBodyCell>
-              <TableBodyCell>{ong.imagem}</TableBodyCell>
-              <TableBodyCell>
-                <button title="Editar" on:click={() => goto(`/ongs/edit/${ong.id}`)}>
-                  <UserEditOutline class="w-5 h-5 text-primary-500" />
-                </button>
-                <button
-                  title="Remover"
-                  on:click={() => openConfirm(ong.id)}
-                  disabled={deletingId === ong.id || loading}
-                >
-                  <TrashBinOutline class="w-5 h-5 text-red-400" />
-                </button>
-              </TableBodyCell>
-            </TableBodyRow>
-          {/each}
-        </TableBody>
-      </Table>
+    <div class="flex flex-wrap gap-6 p-6">
+      {#each ongs as ong}
+      <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 bg-white rounded-lg shadow-md overflow-hidden">
+        <div class="p-6">
+          <h3 class="text-xl font-semibold text-gray-800 mb-2"><a href="{ong.link}">{ong.nome}</a></h3>
+          <p class="text-gray-600">{ong.objetivo}</p>
+        </div>
+      </div>
+      {/each}
     </div>
   
     <!-- Cards (mobile) -->

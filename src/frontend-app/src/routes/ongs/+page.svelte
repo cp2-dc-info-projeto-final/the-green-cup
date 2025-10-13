@@ -68,45 +68,6 @@
     }
   </script>
 
-<!--<div>
-    <div class="text-center pt-32">
-        <Heading tag="h1" class=" pb-4 text-4xl font-extrabold tracking-tight text-gray-900 dark:text-white">Doações</Heading>
-    </div>
-    <div class="flex grid grid-cols-4 gap-4">
-        <div class=" col-start-1 col-end-1">
-            <img class="h-auto max-w-xs rounded-lg" src="https://static.mundoeducacao.uol.com.br/mundoeducacao/2022/10/floresta-amazonica.jpg" alt="">
-        </div>
-        <div class="col-start-1 col-end-1">
-            <p><a href="https://ongzoe.org/?form=doe">Doe para a Ong Zoé</a></p>
-        </div> 
-    </div>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        <div class="bg-gray-100 p-6">
-            <img class="mx-auto w-1/2 h-auto object-cover rounded-lg" src="https://static.mundoeducacao.uol.com.br/mundoeducacao/2022/10/floresta-amazonica.jpg" alt="">
-            <p class="text-center text-xl font-semibold"><a href="https://ongzoe.org/?form=doe">DOE PARA ONG ZOÉ</a></p>
-        </div>
-        <div class="bg-gray-100 p-6">
-            <img class="mx-auto w-1/2 h-auto object-cover rounded-lg" src="https://static.mundoeducacao.uol.com.br/mundoeducacao/2022/10/floresta-amazonica.jpg" alt="">
-            <p class="text-center text-xl font-semibold"><a href="https://ongzoe.org/?form=doe">DOE PARA ONG ZOÉ</a></p>
-        </div>
-        <div class="bg-gray-100 p-6">
-            <img class="mx-auto w-1/2 h-auto object-cover rounded-lg" src="https://static.mundoeducacao.uol.com.br/mundoeducacao/2022/10/floresta-amazonica.jpg" alt="">
-            <p class="text-center text-xl font-semibold"><a href="https://ongzoe.org/?form=doe">DOE PARA ONG ZOÉ</a></p>
-        </div>
-        <div class="bg-gray-100 p-6">
-            <img class="mx-auto w-1/2 h-auto object-cover rounded-lg" src="https://static.mundoeducacao.uol.com.br/mundoeducacao/2022/10/floresta-amazonica.jpg" alt="">
-            <p class="text-center text-xl font-semibold"><a href="https://ongzoe.org/?form=doe">DOE PARA ONG ZOÉ</a></p></div>
-        <div class="bg-gray-100 p-6">
-            <img class="mx-auto w-1/2 h-auto object-cover rounded-lg" src="https://static.mundoeducacao.uol.com.br/mundoeducacao/2022/10/floresta-amazonica.jpg" alt="">
-            <p class="text-center text-xl font-semibold"><a href="https://ongzoe.org/?form=doe">DOE PARA ONG ZOÉ</a></p>
-        </div>
-        <div class="bg-gray-100 p-6">
-            <img class="mx-auto w-1/2 h-auto object-cover rounded-lg" src="https://static.mundoeducacao.uol.com.br/mundoeducacao/2022/10/floresta-amazonica.jpg" alt="">
-            <p class="text-center text-xl font-semibold"><a href="https://ongzoe.org/?form=doe">DOE PARA ONG ZOÉ</a></p>
-        </div>
-      </div>
-</div>-->
-
   <Menu />
   
   <div class="grid-flow-col grid-rows-3 gap-4 text-center pt-32">
@@ -122,6 +83,7 @@
               class="border rounded px-3 py-2"
               placeholder="Pesquisar"
               bind:value={pesquisa}
+              on:input={() => filtro(pesquisa)}
               required />
           </div>
           <div class="">
@@ -151,3 +113,25 @@
     }}
   />
   </div>
+
+<!-- Contêiner principal com flexbox, espaçamento e quebra de linha
+<div class="flex flex-wrap gap-6 p-6">
+
+  Exemplo de card -->
+  <!--<div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 bg-white rounded-lg shadow-md overflow-hidden">
+    <div class="p-6">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlMOOs-JAF_yHSIpuH4ytq5z_OLx1ydviwiw&s" alt="">
+      <h3 class="text-xl font-semibold text-gray-800 mb-2">Título do Card 1</h3>
+      <p class="text-gray-600">Este é o conteúdo do primeiro card.</p>
+    </div>
+  </div>-->
+
+  <!-- Outros cards -->
+  <!--<div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 bg-white rounded-lg shadow-md overflow-hidden">
+    <div class="p-6">
+      <h3 class="text-xl font-semibold text-gray-800 mb-2">Título do Card 2</h3>
+      <p class="text-gray-600">Conteúdo do segundo card.</p>
+    </div>
+  </div>
+
+</div>-->

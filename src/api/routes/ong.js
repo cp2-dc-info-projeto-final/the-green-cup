@@ -14,7 +14,7 @@ router.get('/', async function(req, res, next) {
 
     if(search)
     {
-      busca += ' WHERE nome LIKE $1';
+      busca += ' WHERE nome LIKE $1 OR objetivo LIKE $1';
       parametros.push('%' + search + '%');
     }
     busca += ' ORDER BY id';

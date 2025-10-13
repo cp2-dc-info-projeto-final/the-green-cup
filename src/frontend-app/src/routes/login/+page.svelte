@@ -85,5 +85,8 @@
           </Button>
       </form>
     </Card>
+    <div class="row-start-1 row-end-4 gap-2 pt-6 text-center">
+      <p>Não possui login? Cadastre-se <a href="/users/new" class="text-green-700 font-semibold">aqui</a></p>
+      </div>
   </div>
 </div>

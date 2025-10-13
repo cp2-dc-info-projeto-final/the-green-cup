@@ -107,7 +107,7 @@ router.get('/:id', verifyToken, isAdmin, async function(req, res) {
 });
 
 /* POST - Criar novo usuário */
-router.post('/', verifyToken, isAdmin, async function(req, res) {
+router.post('/', async function(req, res) {
   try {
     const { nome, email, senha, role = 'user' } = req.body;
     
@@ -117,15 +117,6 @@ router.post('/', verifyToken, isAdmin, async function(req, res) {
       return res.status(400).json({
         success: false,
         message: 'Nome, email e senha são obrigatórios'
-      });
-    }
-    
-    // Verificar se o login já existe
-    const existingUser = await pool.query('SELECT id FROM usuario WHERE nome = $1', [nome]);
-    if (existingUser.rows.length > 0) {
-      return res.status(409).json({
-        success: false,
-        message: 'Nome já está em uso'
       });
     }
 
