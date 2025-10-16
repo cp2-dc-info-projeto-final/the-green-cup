@@ -68,6 +68,9 @@
   }
 </script>
 
+<svelte:head>
+    <title>Usuários - TheGreenCup</title>
+</svelte:head>
 <Menu />
 
 <div class="grid-flow-col grid-rows-3 gap-4 text-center pt-32">
@@ -78,20 +81,20 @@
   </div>
       <div class="grid grid-flow-col grid-rows-1 gap-3 justify-center">
         <div class="">
-          <input
-            type="text"
-            class="border rounded px-3 py-2"
-            placeholder="Pesquisar"
-            bind:value={pesquisa}
-            required />
-        </div>
-        <div class="">
-          <button
-              type="button"
-              on:click={() => filtro(pesquisa)} class="px-4 py-2 bg-green-700 transition delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110 hover:bg-green-600 text-white rounded-lg font-semibold shadow transition">
-              Pesquisar
-          </button>
-        </div>
+            <input
+              type="text"
+              class="border rounded px-3 py-2"
+              placeholder="Pesquisar"
+              bind:value={pesquisa}
+              required />
+          </div>
+          <div class="">
+            <button
+                type="button"
+                on:click={() => filtro(pesquisa)} class="px-4 py-2 bg-green-700 transition delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110 hover:bg-green-600 text-white rounded-lg font-semibold shadow transition">
+                Pesquisar
+            </button>
+          </div>
       </div>
         <div class="row-start-1 row-end-4 gap-2 pt-6">
         <button class="gap-2 px-4 py-2  bg-green-700 transition delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110 hover:bg-green-600 text-white rounded-lg font-semibold" on:click={() => goto('/users/new')}>

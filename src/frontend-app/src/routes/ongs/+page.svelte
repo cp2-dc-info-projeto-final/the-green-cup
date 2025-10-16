@@ -68,6 +68,9 @@
     }
   </script>
 
+<svelte:head>
+  <title>Ongs - TheGreenCup</title>
+</svelte:head>
   <Menu />
   
   <div class="grid-flow-col grid-rows-3 gap-4 text-center pt-32">
@@ -79,11 +82,11 @@
         <div class="grid grid-flow-col grid-rows-1 gap-3 justify-center">
           <div class="">
             <input
-              type="text"
+              type="input"
               class="border rounded px-3 py-2"
               placeholder="Pesquisar"
               bind:value={pesquisa}
-              on:input={() => filtro(pesquisa)}
+              on:submit={() => filtro(pesquisa)}
               required />
           </div>
           <div class="">

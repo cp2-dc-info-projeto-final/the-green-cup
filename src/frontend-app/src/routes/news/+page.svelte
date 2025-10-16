@@ -1,7 +1,10 @@
 <script lang="ts">
     import Menu from '../../components/Menu.svelte';
 </script>
- 
+<svelte:head>
+  <title>Notícias - TheGreenCup</title>
+</svelte:head>
+
 
 
  <div class="pt-6">

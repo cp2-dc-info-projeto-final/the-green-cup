@@ -103,7 +103,7 @@
             {id === null ? 'Voltar' : 'Cancelar'}
           </Button>
           <!-- Botão salvar -->
-          <Button type="submit" color="primary" disabled={loading}  class="px-4 py-2 bg-green-700 transition delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110 hover:bg-green-600 text-white rounded-lg font-semibold shadow transition" >
+          <Button type="submit" color="primary" disabled={loading}  class="px-4 py-2 bg-green-700 transition delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110 hover:bg-green-600 text-white rounded-lg font-semibold shadow transition" >{loading ? 'Entrando...' : 'Entrar'}
             <FloppyDiskAltOutline class="inline w-5 h-5 mr-2 align-text-bottom" />
             {id === null ? 'Cadastrar' : 'Salvar'}
           </Button>
