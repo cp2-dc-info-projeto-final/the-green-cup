@@ -14,7 +14,7 @@
       nome: string;
       link: string;
       objetivo: string;
-      imagem: string;
+      img: string;
     };
   
     export let ongs: Ong[] = [];
@@ -88,7 +88,7 @@
       {#each ongs as ong}
       <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 bg-white rounded-lg shadow-md overflow-hidden">
         <div class="p-5">
-          <h3 class="text-xl font-semibold text-gray-800 mb-2"><img src="{ong.imagem}" alt=""><a href="{ong.link}">{ong.nome}</a></h3>
+          <h3 class="text-xl font-semibold text-gray-800 mb-2"><img src="{ong.img}" alt=""><a href="{ong.link}">{ong.nome}</a></h3>
           <p class="text-gray-600">{ong.objetivo}</p>
         </div>
         <div>

@@ -33,7 +33,7 @@ CREATE TABLE ongs(
     nome text NOT NULL,
     link text NOT NULL,
     objetivo text NOT NULL,
-    imagem text NOT NULL,
+    img text NOT NULL,
 
     CONSTRAINT pk_ongs PRIMARY KEY (id)
 );
@@ -44,6 +44,8 @@ CREATE TABLE comentario(
     likes bigint,
     deslike bigint,
     texto text NOT NULL,
+    criacao TIMESTAMP DEFAULT NOW(),
+    atualizacao TIMESTAMP DEFAULT NOW(),
     FOREIGN KEY (id_usuario) REFERENCES usuario(id),
 
     CONSTRAINT pk_comentario PRIMARY KEY (id)
@@ -52,8 +54,9 @@ CREATE TABLE noticias(
     id bigint GENERATED ALWAYS AS IDENTITY,
     id_comentario integer,
     manchete text NOT NULL,
-    data DATE NOT NULL,
-    imagem text NOT NULL,
+    criacao TIMESTAMP DEFAULT NOW(),
+    atualizacao TIMESTAMP DEFAULT NOW(),
+    img text NOT NULL,
     views bigint,
     autor text NOT NULL,
     FOREIGN KEY (id_comentario) REFERENCES comentario(id),
