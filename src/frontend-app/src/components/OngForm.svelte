@@ -60,6 +60,12 @@
     console.log('Cancelar');
     goto('/ongs');
   }
+
+  function handleFileChange(event) {
+    alert("mudou");
+    // Ou faça algo mais útil com os arquivos
+    console.log(event.target.files);
+  }
   
 </script>
 
@@ -92,10 +98,25 @@
       <Input id="objetivo" type="objetivo" bind:value={ong.objetivo} placeholder="Digite o objetivo da Ong" required class="mt-1" />
     </div>
      <!-- Campo imagem -->
-     <div>
-      <Label for="imagem">Imagem</Label>
-      <Input id="imagem" type="imagem" bind:value={ong.img} placeholder="Coloque a imagem da Ong" required class="mt-1" />
+     <div class="max-w-md mx-auto">
+      <label for="file-upload" class="flex justify-center items-center h-40 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100">
+        <!-- Pré-visualização da imagem (inicialmente oculta) -->
+        <img id="preview-image" class="hidden h-full w-full object-cover rounded-lg" src="src={ong.img}" alt="Pré-visualização da imagem">
+        
+        <!-- Ícone e texto de upload (exibidos quando nenhuma imagem for selecionada) -->
+        <div id="upload-placeholder" class="text-center">
+          <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
+            <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3-3m0 0l-3-3m3 3V8M28 8h12a4 4 0 014 4v4m-32 0l-3-3m0 0l-3-3m3 3V8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+          <p class="mt-2 text-sm text-gray-600">
+            <span class="font-semibold">Clique para fazer upload</span> ou arraste e solte
+          </p>
+          <p class="text-xs text-gray-500 mt-1">PNG, JPG, GIF até 10MB</p>
+        </div>
+      </label>
+      <input id="file-upload" type="file" class="sr-only" accept="image/*" on:change={handleFileChange}>
     </div>
+  
       <!-- Botões de ação -->
       <div class="flex gap-4 justify-end mt-4">
         <!-- Botão cancelar/voltar -->

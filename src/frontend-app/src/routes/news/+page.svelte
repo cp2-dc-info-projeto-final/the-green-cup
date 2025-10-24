@@ -1,48 +1,120 @@
 <script lang="ts">
-    import Menu from '../../components/Menu.svelte';
+  import { onMount } from 'svelte';
+  import { Heading, P, ImagePlaceholder } from "flowbite-svelte";
+  import NewsTable from '../../components/NewsTable.svelte';
+  import { UserAddOutline } from 'flowbite-svelte-icons';
+  import { goto } from '$app/navigation';
+  import { Search, Button } from 'flowbite-svelte';
+  import Menu from '../../components/Menu.svelte';
+  import { getCurrentUser } from '$lib/auth';
+
+  onMount(async () => {
+    const user = await getCurrentUser();
+    if (!user) {
+      goto('/login');
+    } else if (user.role !== 'admin') {
+      goto('/');
+    }
+  });
+  let visualizações = 'grid'; // 'grid' ou 'list'
+  let sortBy = 'date';
+  let sortOrder = 'desc';
+  let news = [];
+  let erro = '';
+  let pesquisa = '';
+  let carregando = true;
+
+  // Carrega noticias na primeira vez
+  onMount(async () => {
+    await carregarNews();
+  });
+
+  // Função para carregar todos as noticias
+  async function carregarNews() {
+    carregando = true;
+    erro = '';
+    try {
+      const res = await fetch('http://localhost:3000/ongs');
+      const data = await res.json();
+      news = data.data || [];
+    } catch (e) {
+      erro = 'Erro ao carregar as noticias.';
+    } finally {
+      carregando = false;
+    }
+  }
+
+  // Busca por nome
+  async function filtro(pesquisa: string) {
+    erro = '';
+    carregando = true;
+
+    try {
+      const res = await fetch(`http://localhost:3000/ongs?search=${pesquisa}`);
+      const data = await res.json();
+
+      if (!data.success || !data.data || data.data.length === 0) {
+        erro = data.message || 'Nenhuma noticia encontrado.';
+        news = [];
+        
+        return;
+      }
+
+      news = data.data;
+    } catch (e) {
+      erro = 'Erro ao buscar noticias.';
+      news = [];
+    } finally {
+      carregando = false;
+    }
+  }
 </script>
+
 <svelte:head>
-  <title>Notícias - TheGreenCup</title>
+<title>News - TheGreenCup</title>
 </svelte:head>
+<Menu />
 
+<div class="grid-flow-col grid-rows-3 gap-4 text-center pt-32">
+  <div class="row-start-1 row-end-4 items-center justify-between max-w-3xl mx-auto mb-6">
+    <Heading tag="h2" class="text-4xl font-extrabold tracking-tight text-gray-900 dark:text-white justify-center">
+      Notícias
+    </Heading>
+  </div>
+      <div class="grid grid-flow-col grid-rows-1 gap-3 justify-center">
+        <div class="">
+          <input
+            type="input"
+            class="border rounded px-3 py-2"
+            placeholder="Pesquisar"
+            bind:value={pesquisa}
+            on:submit={() => filtro(pesquisa)}
+            required />
+        </div>
+        <div class="">
+          <button
+              type="button"
+              on:click={() => filtro(pesquisa)} class="px-4 py-2 bg-green-700 transition delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110 hover:bg-green-600 text-white rounded-lg font-semibold shadow transition">
+              Pesquisar
+          </button>
+        </div>
+      </div>
+        <div class="row-start-1 row-end-4 gap-2 pt-6">
+        <button class="gap-2 px-4 py-2  bg-green-700 transition delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110 hover:bg-green-600 text-white rounded-lg font-semibold" on:click={() => goto('/news/new')}>
+          Adicionar
+        </button>
+        </div>
+  {#if erro}
+    <div class="text-red-500 my-4">{erro}</div>
+  {/if}
 
-
- <div class="pt-6">
-    <div class="grid grid-cols-1 gap-4">
-        <h1 class="pt-8 pb-4 text-4xl font-semibold font-mono tracking-tight text-gray-900 dark:text-white"> Últimas Notícias</h1>
-    </div>
-    <a href="javascript:void(0)">
-        <div class="relative flex flex-col my-6 bg-white shadow-sm border border-slate-200 rounded-lg w-96">
-          <div class="relative h-56 m-2.5 overflow-hidden text-white rounded-md">
-            <img src="https://s2-g1.glbimg.com/2_8mMrEZbyy5RxNiGdCFVDSqdTs=/540x304/top/smart/https://i.s3.glbimg.com/v1/AUTH_59edd422c0c84a879bd37670ae4f538a/internal_photos/bs/2025/X/d/1XMNa5RvuMDUhmT5h29Q/imagem-do-whatsapp-de-2025-10-02-a-s-07.31.43-ed192227.jpg" alt="card-image" />
-          </div>
-          <div class="p-4">
-            <div class="mb-4 rounded-full bg-green-600 py-0.5 px-2.5 border border-transparent text-xs text-white transition-all shadow-sm w-20 text-center">
-              POPULAR
-            </div>
-            <h6 class="mb-2 text-slate-800 text-xl font-semibold">
-              Onça pintuda 
-            </h6>
-            <p class="text-slate-600 leading-normal font-light">
-                Onça-pintada resgatada baleada após horas nadando em rio no AM é macho com cerca de dois anos, diz governo
-            </p>
-          </div>
-       
-          <div class="flex items-center justify-between p-4">
-            <div class="flex items-center">
-              <img
-                alt="Tania Andrew"
-                src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1480&amp;q=80"
-                class="relative inline-block h-8 w-8 rounded-full"
-              />
-              <div class="flex flex-col ml-3 text-sm">
-                <span class="text-slate-800 font-semibold">Lewis Daniel</span>
-                <span class="text-slate-600">
-                  January 10, 2024
-                </span>
-              </div>
-            </div>
-          </div>
-        </div> 
-      </a>
+  <OngsTable
+  {news}
+  loading={carregando}
+  error={erro}
+  on:delete={(e) => {
+    const id = e.detail;
+    news = news.filter(news => news.id !== id);
+  }}
+/>
 </div>

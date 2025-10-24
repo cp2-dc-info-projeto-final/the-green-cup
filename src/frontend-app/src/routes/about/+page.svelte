@@ -20,8 +20,8 @@
         <h5 class="pt-8 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Juntos pela Vida Selvagem: Protegendo a Fauna e a Flora do Brasil!</h5>
     </a>
 </div>
-<div class="flex grid md:grid-cols-4 gap-2">
-    <div class="col-start-2 col-end-4">
+<div class="flex grid md:grid-cols-4">
+    <div class="mt-2 col-start-2 col-end-4">
         <p class="pt-8 text-center font-normal text-gray-700 dark:text-gray-400">O Brasil abriga uma das maiores biodiversidades do planeta, com ecossistemas únicos e espécies que só existem aqui.
             No entanto, essa riqueza natural está constantemente ameaçada pelo desmatamento, pela poluição e por ações humanas que colocam em risco o equilíbrio ambiental.
             Nosso site é dedicado a apoiar ONGs comprometidas com a preservação da fauna e da flora brasileira.
