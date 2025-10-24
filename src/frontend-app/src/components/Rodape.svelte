@@ -11,7 +11,7 @@
                         <a href="/about" class="hover:underline me-4 md:me-6 font-mono bg-white">Sobre</a>
                     </li>
                     <li>
-                        <a href="#" class="hover:underline me-4 md:me-6 font-mono bg-white">Política de Privacidade</a>
+                        <a href="/politic" class="hover:underline me-4 md:me-6 font-mono bg-white">Política de Privacidade</a>
                     </li>
                     <li>
                         <a href="https://github.com/cp2-dc-info-projeto-final/the-green-cup.git" class="hover:underline me-4 md:me-6 font-mono bg-white">Github</a>
