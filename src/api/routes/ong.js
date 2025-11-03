@@ -154,12 +154,12 @@ router.post('/', verifyToken, isAdmin, async function(req, res) {
       'INSERT INTO ongs (nome, link, objetivo, img) VALUES ($1, $2, $3, $4) RETURNING id, nome, link, objetivo, img',
       [nome, link, objetivo, img]
     );
-    if(file){
+    if(img){
       try{
-        axios.post('http://localhost:3000/images', {
+        axios.post('http://localhost:3001/images', {
           // dados enviados no corpo da requisição
           path: `uploads/${result.rows[0].id}/main.png`,
-          base64: file
+          base64: img
         })
       }catch(e){}
     }

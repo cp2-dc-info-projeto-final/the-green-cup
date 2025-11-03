@@ -19,6 +19,8 @@
   let ong: Ong = { id: 0, nome: '', link: '', objetivo: '', img: '' }; // dados do form
   let loading = false;
   let error = '';
+  let thumbnail;
+  
 
   // Carrega ong se for edição
   onMount(async () => {
@@ -62,9 +64,19 @@
   }
 
   function handleFileChange(event) {
-    alert("mudou");
     // Ou faça algo mais útil com os arquivos
-    console.log(event.target.files);
+    let image = event.target.files[0];
+            let reader = new FileReader();
+            reader.readAsDataURL(image);
+            reader.onload = event => {
+                 thumbnail = event?.target?.result;
+                 if (event?.target?.result) {
+                    ong.img = event.target.result;
+                 } else {
+                  ong.img = "";
+                 }
+                 
+            };
   }
   
 </script>
@@ -99,9 +111,12 @@
     </div>
      <!-- Campo imagem -->
      <div class="max-w-md mx-auto">
+      {#if thumbnail}
+      <img src="{thumbnail}">
+      {:else}
       <label for="file-upload" class="flex justify-center items-center h-40 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100">
         <!-- Pré-visualização da imagem (inicialmente oculta) -->
-        <img id="preview-image" class="hidden h-full w-full object-cover rounded-lg" src="src={ong.img}" alt="Pré-visualização da imagem">
+        <img id="preview-image" class="hidden h-full w-full object-cover rounded-lg" alt="Pré-visualização da imagem">
         
         <!-- Ícone e texto de upload (exibidos quando nenhuma imagem for selecionada) -->
         <div id="upload-placeholder" class="text-center">
@@ -114,7 +129,10 @@
           <p class="text-xs text-gray-500 mt-1">PNG, JPG, GIF até 10MB</p>
         </div>
       </label>
-      <input id="file-upload" type="file" class="sr-only" accept="image/*" on:change={handleFileChange}>
+      <!--<input id="file-upload" type="file" class="sr-only" accept="image/*" on:change={handleFileChange}>-->
+        <input id="file-upload" style="display:none" type="file" accept=".jpg, .jpeg, .png" on:change={(e)=>handleFileChange(e)} >
+      {/if}
+      
     </div>
   
       <!-- Botões de ação -->
