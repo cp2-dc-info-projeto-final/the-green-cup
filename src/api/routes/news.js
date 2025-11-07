@@ -4,30 +4,30 @@ const pool = require('../db/config');
 const axios = require('axios')
 const { verifyToken, isAdmin } = require('../middlewares/auth');
 
-/* GET - Buscar todos as ongs */
+/* GET - Buscar todas as noticias */
 router.get('/', async function(req, res, next) {
   try {
     const { search } = req.query;
-    let busca = 'SELECT * FROM ongs';
+    let busca = 'SELECT * FROM noticias';
     let parametros = [];
     const result = await pool.query(busca, parametros);
-      result.rows.map(async (ong) => {
+      result.rows.map(async (noticias) => {
         try {
           let Imagem = await axios.put("http://localhost:3001/images", {
-            "path": `uploads/${ong.id}/main.png`
+            "path": `uploads/${noticias.id}/main.png`
           })
           return {
-            ...ong,
+            ...noticias,
             "Image": Imagem.data.data
           }
         } catch (e) {
-          return ong
+          return noticias
         }
       })
     
     if(search)
     {
-      busca += ' WHERE nome LIKE $1 OR objetivo LIKE $1';
+      busca += ' WHERE manchete LIKE $1 OR autor LIKE $1';
       parametros.push('%' + search + '%');
     }
     busca += ' ORDER BY id';
@@ -36,7 +36,7 @@ router.get('/', async function(req, res, next) {
         data: result.rows
     });
   } catch (error) {
-    console.error('Erro ao buscar Ongs:', error);
+    console.error('Erro ao buscar noticias:', error);
     res.status(500).json({
       success: false,
       message: 'Erro interno do servidor'
@@ -50,8 +50,7 @@ router.get('/', verifyToken, isAdmin, async function(req, res) {
     res.json({
       success: true,
       data: result.rows
-    }); 
-    console.log(data)
+    });
   } catch (error) {
     console.error('Erro ao buscar usuários:', error);
     // http status 500 - Internal Server Error
@@ -91,17 +90,17 @@ router.get('/me', verifyToken, async function(req, res) {
   }
 });
 
-/* GET parametrizado - Buscar ong por ID */
+/* GET parametrizado - Buscar notícias por ID */
 router.get('/:id', verifyToken, isAdmin, async function(req, res) {
   try {
     const { id } = req.params;
-    const result = await pool.query('SELECT id, nome, link, objetivo, img FROM ongs WHERE id = $1', [id]);
+    const result = await pool.query('SELECT id, manchete, data, img FROM noticias WHERE id = $1', [id]);
 
     if (result.rows.length === 0) {
       // http status 404 - Not Found
       return res.status(404).json({
         success: false,
-        message: 'ONG não encontrada.'
+        message: 'Notícia não encontrada.'
       });
     }
     
@@ -110,7 +109,7 @@ router.get('/:id', verifyToken, isAdmin, async function(req, res) {
       data: result.rows[0]
     });
   } catch (error) {
-    console.error('Erro ao buscar ONG:', error);
+    console.error('Erro ao buscar notícia:', error);
     // http status 500 - Internal Server Error
     res.status(500).json({
       success: false,
@@ -119,41 +118,32 @@ router.get('/:id', verifyToken, isAdmin, async function(req, res) {
   }
 });
 
-/* POST - Cadastrar nova ong */
+/* POST - Cadastrar nova notícia */
 router.post('/', verifyToken, isAdmin, async function(req, res) {
   try {
-    const { nome, link, objetivo, img} = req.body;
+    const { manchete, data, img, autor} = req.body;
     
     // Validação básica
-    if (!nome || !link || !objetivo || !img ) {
+    if (!manchete || !data || !img || !autor ) {
       // http status 400 - Bad Request
       return res.status(400).json({
         success: false,
-        message: 'Nome, link, objetivo e imagem são obrigatórios.'
+        message: 'Manchete, autor e imagem são obrigatórios.'
       });
     }
 
-    // Verificar se a ONG já existe
-    const existingOng = await pool.query('SELECT id FROM ongs WHERE nome = $1', [nome]);
-    if (existingOng.rows.length > 0) {
+    // Verificar se a notícia já existe
+    const existingNew= await pool.query('SELECT id FROM noticias WHERE manchete = $1', [manchete]);
+    if (existingNew.rows.length > 0) {
       return res.status(409).json({
         success: false,
-        message: 'Esta ONG já está cadastrada.'
-      });
-    }
-
-    // Verificar se o link já existe
-    const existingLink = await pool.query('SELECT id FROM ongs WHERE link = $1', [link]);
-    if (existingLink.rows.length > 0) {
-      return res.status(409).json({
-        success: false,
-        message: 'Link já está em uso.'
+        message: 'Esta notícia já está publicada.'
       });
     }
 
     const result = await pool.query(
-      'INSERT INTO ongs (nome, link, objetivo, img) VALUES ($1, $2, $3, $4) RETURNING id, nome, link, objetivo, img',
-      [nome, link, objetivo, img]
+      'INSERT INTO noticias (manchete, data, img, autor) VALUES ($1, $2, $3, $4) RETURNING id, manchete, data, img, autor',
+      [manchete, data, img, autor]
     );
     if(img){
       try{
@@ -168,11 +158,11 @@ router.post('/', verifyToken, isAdmin, async function(req, res) {
     // http status 201 - Created
     res.status(201).json({
       success: true,
-      message: 'ONG cadastrada com sucesso',
+      message: 'Notícia publicada com sucesso',
       data: result.rows[0]
     });
   } catch (error) {
-    console.error('Erro ao criar ONG:', error);
+    console.error('Erro ao publicar notícia:', error);
     // Verificar se é erro de constraint
     if (error.code === '23514') {
       return res.status(400).json({
@@ -188,57 +178,48 @@ router.post('/', verifyToken, isAdmin, async function(req, res) {
   }
 });
 
-/* PUT - Atualizar ong */
+/* PUT - Atualizar notícia */
 router.put('/:id', verifyToken, isAdmin, async function(req, res) {
   try {
     const { id } = req.params;
-    const { nome, link, objetivo, img } = req.body;
+    const { manchete, data, img, autor} = req.body;
     
     // Validação básica
-    if (!nome || !link || !objetivo || !img) {
+    if (!manchete || !data || !img || !autor) {
 
       // http status 400 - Bad Request
       return res.status(400).json({
         success: false,
-        message: 'Nome, link, objetivo e imagem são obrigatórios'
+        message: 'Manchete, autor e imagem são obrigatórios'
       });
     }
     
-    // Verificar se a ONG existe
-    const ongExists = await pool.query('SELECT id FROM ongs WHERE id = $1', [id]);
-    if (ongExists.rows.length === 0) {
+    // Verificar se a notícia existe
+    const newExists = await pool.query('SELECT id FROM noticias WHERE id = $1', [id]);
+    if (newExists.rows.length === 0) {
       // http status 404 - Not Found
       return res.status(404).json({
         success: false,
-        message: 'ONG não encontrada'
+        message: 'Notícia não encontrada'
       });
     }
-    // Verificar se a ong já está cadastrada
-    const existingOng = await pool.query('SELECT id FROM ongs WHERE nome = $1 AND id != $2', [nome, id]);
+    // Verificar se a notícia já está cadastrada
+    const existingOng = await pool.query('SELECT id FROM noticia WHERE manchete = $1 AND id != $2', [manchete, id]);
     if (existingOng.rows.length > 0) {
       // https status 409 - Conflict
       return res.status(409).json({
         success: false,
-        message: 'ONG já existe.'
-      });
-    }
-
-    // Verificar se o email já está em uso por outro usuário
-    const existingLink = await pool.query('SELECT id FROM ongs WHERE link = $1 AND id != $2', [link, id]);
-    if (existingLink.rows.length > 0) {
-      return res.status(409).json({
-        success: false,
-        message: 'O link desta ONG já está sendo usado.'
+        message: 'Notícia já existe.'
       });
     }
 
     res.json({
       success: true,
-      message: 'ONG atualizada com sucesso.',
+      message: 'Notícia atualizada com sucesso.',
       data: result.rows[0]
     });
   } catch (error) {
-    console.error('Erro ao atualizar ONG:', error);
+    console.error('Erro ao atualizar notícia:', error);
     // Verificar se é erro de constraint
     if (error.code === '23514') {
       return res.status(400).json({
@@ -254,22 +235,22 @@ router.put('/:id', verifyToken, isAdmin, async function(req, res) {
   }
 });
 
-/* DELETE - Remover ONG */
+/* DELETE - Remover notícia */
 router.delete('/:id', verifyToken, isAdmin, async function(req, res) {
   try {
     const { id } = req.params;
     
-    // Verificar se a ONG existe
-    const ongExists = await pool.query('SELECT id FROM ongs WHERE id = $1', [id]);
-    if (ongExists.rows.length === 0) {
+    // Verificar se a notícia existe
+    const newExists = await pool.query('SELECT id FROM noticias WHERE id = $1', [id]);
+    if (newExists.rows.length === 0) {
       // http status 404 - Not Found
       return res.status(404).json({
         success: false,
-        message: 'ONG não encontrada'
+        message: 'Notícia não encontrada'
       });
     }
     
-    await pool.query('DELETE FROM ongs WHERE id = $1', [id]);
+    await pool.query('DELETE FROM noticias WHERE id = $1', [id]);
     try{
       await axios.delete("http://localhost:3001/images", {
   data: {
@@ -282,10 +263,10 @@ router.delete('/:id', verifyToken, isAdmin, async function(req, res) {
     }
     res.json({
       success: true,
-      message: 'ONG deletada com sucesso.'
+      message: 'Notícia deletada com sucesso.'
     });
   } catch (error) {
-    console.error('Erro ao deletar ONG:', error);
+    console.error('Erro ao deletar notícia:', error);
     // http status 500 - Internal Server Error
     res.status(500).json({
       success: false,

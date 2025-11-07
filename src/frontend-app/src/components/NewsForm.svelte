@@ -19,7 +19,7 @@
     autor: string;
   };
 
-  let news: News = { id: 0, id_comentario: 0, manchete: '', data: '', img: '', views: 0, autor: '' }; // dados do form
+  let noticias: News = { id: 0, id_comentario: 0, manchete: '', data: '', img: '', views: 0, autor: '' }; // dados do form
   let loading = false;
   let error = '';
   let thumbnail;
@@ -30,8 +30,8 @@ onMount(async () => {
     loading = true;
     try {
       const res = await api.get(`/news/${id}`);
-      news = { ...res.data.data}; // não carrega senha na edição
-      console.log(news);
+      noticias = { ...res.data.data}; // não carrega senha na edição
+      console.log(noticias);
     } catch (e) {
       error = 'Erro ao carregar notícias.';
     } finally {
@@ -45,7 +45,7 @@ async function handleSubmit() {
   loading = true;
   error = '';
   try {
-    const newData = { ...news };
+    const newData = { ...noticias };
     
     if (id === null) {
       await api.post('/news', newData);
@@ -73,9 +73,9 @@ function handleFileChange(event) {
           reader.onload = event => {
                thumbnail = event?.target?.result;
                if (event?.target?.result) {
-                  news.img = event.target.result;
+                  noticias.img = event.target.result;
                } else {
-                news.img = "";
+                noticias.img = "";
                }
                
           };
@@ -98,17 +98,17 @@ function handleFileChange(event) {
       <!-- Campo manchete -->
       <div>
         <Label for="manchete">Manchete</Label>
-        <Input id="manchete" bind:value={news.manchete} placeholder="Escreva a manchete" required class="mt-1" />
+        <Input id="manchete" bind:value={noticias.manchete} placeholder="Escreva a manchete" required class="mt-1" />
       </div>
       <!-- Campo data -->
       <div>
         <Label for="data">Data</Label>
-        <Input id="data" type="date" bind:value={news.data} placeholder="Digite a data" required class="mt-1" />
+        <Input id="data" type="date" bind:value={noticias.data} placeholder="Digite a data" required class="mt-1" />
       </div>
       <!-- Campo autor -->
       <div>
         <Label for="autor">Autor</Label>
-        <Input id="autor" type="autor" bind:value={news.autor} placeholder="Escreva o nome do autor" required class="mt-1" />
+        <Input id="autor" type="autor" bind:value={noticias.autor} placeholder="Escreva o nome do autor" required class="mt-1" />
       </div>
       <div>
         <div class="max-w-md mx-auto">

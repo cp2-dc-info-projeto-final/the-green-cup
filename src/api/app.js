@@ -7,7 +7,8 @@ var cors = require('cors');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var ongRouter = require('./routes/ong')
+var ongRouter = require('./routes/ong');
+var newRouter = require('./routes/news')
 
 var app = express();
 
@@ -27,6 +28,7 @@ app.use(cookieParser());
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/ongs', ongRouter);
+app.use('/news', newRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -54,6 +56,12 @@ app.get('/ongs', (req, res) => {
   const search = req.query.search?.toLowerCase() || '';
   const filteredOngs = allOngs.filter(u => u.nome.toLowerCase().includes(search));
   res.json({ success: true, data: filteredOngs });
+});
+
+app.get('/news', (req, res) => {
+  const search = req.query.search?.toLowerCase() || '';
+  const filteredNews = allOngs.filter(u => u.manchete.toLowerCase().includes(search));
+  res.json({ success: true, data: filteredNews });
 });
 
 module.exports = app;

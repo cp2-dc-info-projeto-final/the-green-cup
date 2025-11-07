@@ -18,7 +18,7 @@
     <div class="grid grid-cols-1 gap-4 bg-[url()] bg-right">
         <h1 class="pt-8 pb-4 text-4xl font-semibold font-mono tracking-tight text-gray-900 dark:text-white bg-white"> Abrace a causa</h1>
         <div class="flex grid md:grid-flow-col md:grid-rows-1">
-            <div class="w-full bg-white col-1 pr-12">
+            <div class="w-full bg-white col-1 md:col-1 md:pr-12 ">
                 <p ><a class="text-4xl font-semibold tracking-tight text-green-900 hover:text-green-700 dark:text-white p" href="https://www.greenpeace.org/brasil/">GREENPEACE BRASIL</a></p>
                 <p class="mb-3 text-gray-500 dark:text-gray-400">A organização Greenpeace se dedica a proteger a biodiversidade, enfrentar a crise climática, promover soluções sustentáveis e a paz, com financiamento proveniente unicamente de doações de indivíduos. Em 1971, um grupo composto por ecologistas, jornalistas e hippies se reuniu para protestar contra os testes nucleares americanos na costa do Alasca. A resiliência e o comprometimento desses 12 indivíduos, o espírito ativista e uma pequena embarcação de pesca alugada, constituíram os elementos ideais para a criação do Greenpeace. </p>
                 <div class="row-span-1 pb-8">
@@ -41,8 +41,8 @@
                     </a>  
                 </div>
             </div>
-            <div class="pl-12">
-                <div class="w-full bg-white col-2">
+            <div class="md:pl-12">
+                <div class="w-full bg-white md:col-1">
                     <p ><a class="text-4xl font-semibold tracking-tight text-green-900 hover:text-green-700 dark:text-white p" href="https://www.sosma.org.br/">FUNDAÇÃO SOS MATA ATLÂNTICA</a></p>
                     <p class="mb-3 text-gray-500 dark:text-gray-400">A Fundação SOS Mata Atlântica é comprometida com a preservação da Mata Atlântica, desenvolvendo projetos de restauração florestal e conscientizando a população sobre a relevância desse bioma.  Eles também afetam as políticas públicas, garantindo a proteção de regiões essenciais. </p>
                     <div class="row-span-1 pb-8">
@@ -58,10 +58,10 @@
                     </a>    
                     </div>
                    
-                    <p ><a class="text-4xl font-semibold tracking-tight text-green-900 hover:text-green-700 dark:text-white" href="https://www.nature.org/en-us/about-us/where-we-work/latin-america/brazil/">The Nature Conservancy (TNC) – Brasil</a></p>
+                    <p ><a class="text-4xl font-semibold tracking-tight text-green-900 hover:text-green-700 dark:text-white" href="https://www.tnc.org.br/">The Nature Conservancy (TNC) – Brasil</a></p>
                     <p class="mb-3 text-gray-500 dark:text-gray-400">A The Nature Conservancy (TNC) no Brasil é uma entidade ambiental dedicada à preservação da natureza e biodiversidade, com ênfase em soluções para a Amazônia, Cerrado e Mata Atlântica.  Ela trabalha no combate às mudanças climáticas, preservação de terras e águas, e promoção da restauração de ecossistemas por meio da ciência, colaborações com comunidades locais, governos e setor privado.</p>
                     <div class="col-span-2 pb-8">
-                        <a href="https://www.nature.org/en-us/about-us/where-we-work/latin-america/brazil/">
+                        <a href="https://www.tnc.org.br/">
                             <img src="https://shopwhatsgood.com/cdn/shop/articles/WHATSGOOD_NON-PROFIT_blogsized_NATURE_CONSERVANCY_1198_x_750_px_1_1198x.jpg?v=1711383534" alt=""> 
                         </a>  
                     </div>

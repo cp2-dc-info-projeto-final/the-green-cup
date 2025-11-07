@@ -17,7 +17,7 @@
       }
     });
 
-    let news = [];
+    let noticias = [];
     let erro = '';
     let pesquisa = '';
     let carregando = true;
@@ -33,8 +33,8 @@
       erro = '';
       try {
         const res = await fetch('http://localhost:5173/news');
-        const data = await res.json();
-        news = data.data || [];
+        const data = await res.json(); //============= O ERRO TÁ AQUI, VAI PRO CATCH, LANÇA ALGUM ERRO ==============
+        noticias = data.data || [];
       } catch (e) {
         erro = 'Erro ao carregar as noticias.';
       } finally {
@@ -44,7 +44,7 @@
 
     // Busca por nome
     async function filtro(pesquisa: string) {
-      erro = '';
+      erro = 'Erro ao carregar noticias';
       carregando = true;
 
       try {
@@ -53,15 +53,15 @@
 
         if (!data.success || !data.data || data.data.length === 0) {
           erro = data.message || 'Nenhuma noticia encontrado.';
-          news = [];
+          noticias = [];
           
           return;
         }
 
-        news = data.data;
+        noticias = data.data;
       } catch (e) {
         erro = 'Erro ao buscar noticias.';
-        news = [];
+        noticias = [];
       } finally {
         carregando = false;
       }
@@ -107,12 +107,12 @@
     {/if}
 
     <NewsTable
-    {news}
+    {noticias}
     loading={carregando}
     error={erro}
     on:delete={(e) => {
       const id = e.detail;
-      news = news.filter(news => news.id !== id);
+      noticias = noticias.filter(noticias => noticias.id !== id);
     }}
   />
 </div>

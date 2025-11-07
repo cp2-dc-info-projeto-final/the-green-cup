@@ -54,6 +54,7 @@ CREATE TABLE noticias(
     id bigint GENERATED ALWAYS AS IDENTITY,
     id_comentario integer,
     manchete text NOT NULL,
+    data text NOT NULL,
     criacao TIMESTAMP DEFAULT NOW(),
     atualizacao TIMESTAMP DEFAULT NOW(),
     img text NOT NULL,
