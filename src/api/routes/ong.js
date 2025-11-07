@@ -50,7 +50,8 @@ router.get('/', verifyToken, isAdmin, async function(req, res) {
     res.json({
       success: true,
       data: result.rows
-    });
+    }); 
+    console.log(data)
   } catch (error) {
     console.error('Erro ao buscar usuários:', error);
     // http status 500 - Internal Server Error
