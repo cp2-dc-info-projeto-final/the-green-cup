@@ -2,12 +2,32 @@
   import { createEventDispatcher } from 'svelte';
   const dispatch = createEventDispatcher();
 
-  import { Table, TableHead, TableHeadCell, TableBody, TableBodyRow, TableBodyCell, Card, Badge } from 'flowbite-svelte';
   import ConfirmModal from './ConfirmModal.svelte';
   import { UserEditOutline, TrashBinOutline } from 'flowbite-svelte-icons';
   import { goto } from '$app/navigation';
   import api from '$lib/api';
   import { onMount } from 'svelte';
+  import { getCurrentUser, getToken, type User } from '$lib/auth';
+
+  let user: User | null = null;
+  let hasToken = false;
+
+// Verifica token sincronamente (instantâneo)
+function updateAuthStatus() {
+    hasToken = getToken() !== null;
+    
+    // Se tem token, carrega dados do usuário em background
+    if (hasToken && !user) {
+      getCurrentUser().then(userData => {
+        user = userData;
+      }).catch(() => {
+        user = null;
+        hasToken = false;
+      });
+    } else if (!hasToken) {
+      user = null;
+    }
+  }
 
   type Ong = {
     id: number;
@@ -72,6 +92,10 @@ onMount(async () => {
       loading = false;
     }
   });
+
+  onMount(async () => {
+      updateAuthStatus();
+	});
 </script>
 
 {#if loading}
@@ -91,6 +115,8 @@ onMount(async () => {
         <h3 class="text-xl font-semibold text-gray-800 mb-2"><img src="{ong.img}" alt=""><a href="{ong.link}">{ong.nome}</a></h3>
         <p class="text-gray-600">{ong.objetivo}</p>
       </div>
+      {#if hasToken}
+            {#if user?.role === 'admin'} 
       <div>
         <button title="Editar" on:click={() => goto(`/ongs/edit/${ong.id}`)}>
           <UserEditOutline class="w-5 h-5 text-primary-500" />
@@ -103,6 +129,11 @@ onMount(async () => {
           <TrashBinOutline class="w-5 h-5 text-red-400" />
         </button>
       </div>
+        {/if}
+    {/if}
+  {#if erro}
+    <div class="text-red-500 my-4">{erro}</div>
+  {/if}
     </div>
     {/each}
   </div>

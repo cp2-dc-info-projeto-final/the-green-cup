@@ -1,12 +1,10 @@
 <script lang="ts">
     import { onMount } from 'svelte';
-    import { Heading, P, ImagePlaceholder } from "flowbite-svelte";
+    import { Heading } from "flowbite-svelte";
     import OngsTable from '../../components/OngsTable.svelte';
-    import { UserAddOutline } from 'flowbite-svelte-icons';
     import { goto } from '$app/navigation';
-    import { Search, Button } from 'flowbite-svelte';
     import Menu from '../../components/Menu.svelte';
-    import { getCurrentUser } from '$lib/auth';
+    import { getCurrentUser, getToken, type User } from '$lib/auth';
   
     let user: User | null = null;
     let hasToken = false;
@@ -77,6 +75,10 @@ function updateAuthStatus() {
         carregando = false;
       }
     }
+
+    onMount(async () => {
+      updateAuthStatus();
+	  });
   </script>
 
 <svelte:head>
@@ -109,15 +111,13 @@ function updateAuthStatus() {
           </div>
         </div>
         {#if hasToken}
-          {#if user} <!-- se existir usuário é porque conseguiu logar-->
-            {#if user.role === 'admin'} <!-- só exibe botão criar para admin   TESTE!!!!-->
+            {#if user?.role === 'admin'} <!-- só exibe botão criar para admin --> 
             <div class="row-start-1 row-end-4 gap-2 pt-6">
             <button class="gap-2 px-4 py-2  bg-green-700 transition delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110 hover:bg-green-600 text-white rounded-lg font-semibold" on:click={() => goto('/ongs/new')}>
               Adicionar
             </button>
             </div>
             {/if}
-          {/if}
         {/if}
     {#if erro}
       <div class="text-red-500 my-4">{erro}</div>
