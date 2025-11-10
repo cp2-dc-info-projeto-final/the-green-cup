@@ -23,7 +23,7 @@
   let loading = false;
   let error = '';
   let thumbnail;
-
+  
   // Carrega notícia se for edição
 onMount(async () => {
   if (id !== null) {
@@ -103,7 +103,7 @@ function handleFileChange(event) {
       <!-- Campo data -->
       <div>
         <Label for="data">Data</Label>
-        <Input id="data" type="date" bind:value={noticias.data} placeholder="Digite a data" required class="mt-1" />
+        <Input id="data" type="date" bind:value={noticias.data} placeholder="Digite a data" class="mt-1" />
       </div>
       <!-- Campo autor -->
       <div>

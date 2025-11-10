@@ -8,14 +8,25 @@
     import Menu from '../../components/Menu.svelte';
     import { getCurrentUser } from '$lib/auth';
   
-    onMount(async () => {
-      const user = await getCurrentUser();
-      if (!user) {
-        goto('/login');
-      } else if (user.role !== 'admin') {
-        goto('/');
-      }
-    });
+    let user: User | null = null;
+    let hasToken = false;
+
+// Verifica token sincronamente (instantâneo)
+function updateAuthStatus() {
+    hasToken = getToken() !== null;
+    
+    // Se tem token, carrega dados do usuário em background
+    if (hasToken && !user) {
+      getCurrentUser().then(userData => {
+        user = userData;
+      }).catch(() => {
+        user = null;
+        hasToken = false;
+      });
+    } else if (!hasToken) {
+      user = null;
+    }
+  }
   
     let ongs = [];
     let erro = '';
@@ -97,11 +108,17 @@
             </button>
           </div>
         </div>
-          <div class="row-start-1 row-end-4 gap-2 pt-6">
-          <button class="gap-2 px-4 py-2  bg-green-700 transition delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110 hover:bg-green-600 text-white rounded-lg font-semibold" on:click={() => goto('/ongs/new')}>
-            Adicionar
-          </button>
-          </div>
+        {#if hasToken}
+          {#if user} <!-- se existir usuário é porque conseguiu logar-->
+            {#if user.role === 'admin'} <!-- só exibe botão criar para admin   TESTE!!!!-->
+            <div class="row-start-1 row-end-4 gap-2 pt-6">
+            <button class="gap-2 px-4 py-2  bg-green-700 transition delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110 hover:bg-green-600 text-white rounded-lg font-semibold" on:click={() => goto('/ongs/new')}>
+              Adicionar
+            </button>
+            </div>
+            {/if}
+          {/if}
+        {/if}
     {#if erro}
       <div class="text-red-500 my-4">{erro}</div>
     {/if}

@@ -7,64 +7,57 @@
     import { Search, Button } from 'flowbite-svelte';
     import Menu from '../../components/Menu.svelte';
     import { getCurrentUser } from '$lib/auth';
+    import api from '$lib/api';
 
-    onMount(async () => {
-      const user = await getCurrentUser();
-      if (!user) {
-        goto('/login');
-      } else if (user.role !== 'admin') {
-        goto('/');
-      }
-    });
+    let user: User | null = null;
+    let hasToken = false;
+
+// Verifica token sincronamente (instantâneo)
+function updateAuthStatus() {
+    hasToken = getToken() !== null;
+    
+    // Se tem token, carrega dados do usuário em background
+    if (hasToken && !user) {
+      getCurrentUser().then(userData => {
+        user = userData;
+      }).catch(() => {
+        user = null;
+        hasToken = false;
+      });
+    } else if (!hasToken) {
+      user = null;
+    }
+  }
 
     let noticias = [];
     let erro = '';
     let pesquisa = '';
     let carregando = true;
 
-    // Carrega noticias na primeira vez
-    onMount(async () => {
-      await carregarNews();
-    });
-
-    // Função para carregar todos as noticias
-    async function carregarNews() {
-      carregando = true;
-      erro = '';
-      try {
-        const res = await fetch('http://localhost:5173/news');
-        const data = await res.json(); //============= O ERRO TÁ AQUI, VAI PRO CATCH, LANÇA ALGUM ERRO ==============
-        noticias = data.data || [];
-      } catch (e) {
-        erro = 'Erro ao carregar as noticias.';
-      } finally {
-        carregando = false;
-      }
-    }
-
-    // Busca por nome
+    // Busca pela manchete
     async function filtro(pesquisa: string) {
-      erro = 'Erro ao carregar noticias';
+    
       carregando = true;
 
       try {
-        const res = await fetch(`http://localhost:3000/news?search=${pesquisa}`);
-        const data = await res.json();
-
-        if (!data.success || !data.data || data.data.length === 0) {
-          erro = data.message || 'Nenhuma noticia encontrado.';
+        const res = await api.get(`/news?search=${pesquisa}`);
+        
+        if (!res.data.data || res.data.data.length === 0) {
+          erro = res.data.message || 'Nenhuma noticia encontrado.';
           noticias = [];
           
           return;
         }
 
-        noticias = data.data;
-      } catch (e) {
-        erro = 'Erro ao buscar noticias.';
-        noticias = [];
+        noticias = res.data.data;
+        console.log(noticias);
+      } catch (e: any) {
+        console.error('Erro ao carregar noticias:', e);
+        erro = e.response?.data?.message || 'Erro ao carregar noticias';
       } finally {
         carregando = false;
       }
+
     }
   </script>
 
@@ -97,11 +90,17 @@
             </button>
           </div>
         </div>
-          <div class="row-start-1 row-end-4 gap-2 pt-6">
-          <button class="gap-2 px-4 py-2  bg-green-700 transition delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110 hover:bg-green-600 text-white rounded-lg font-semibold" on:click={() => goto('/news/new')}>
-            Adicionar
-          </button>
-          </div>
+        {#if hasToken}
+          {#if user} <!-- se existir usuário é porque conseguiu logar-->
+            {#if user.role === 'admin'} <!-- só exibe botão criar para admin    TESTE!!!!--> 
+            <div class="row-start-1 row-end-4 gap-2 pt-6">
+            <button class="gap-2 px-4 py-2  bg-green-700 transition delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110 hover:bg-green-600 text-white rounded-lg font-semibold" on:click={() => goto('/news/new')}>
+              Adicionar
+            </button>
+            </div>
+            {/if}
+          {/if}
+        {/if}
     {#if erro}
       <div class="text-red-500 my-4">{erro}</div>
     {/if}
@@ -112,7 +111,7 @@
     error={erro}
     on:delete={(e) => {
       const id = e.detail;
-      noticias = noticias.filter(noticias => noticias.id !== id);
+      noticias = noticias.filter(noticia => noticia.id !== id);
     }}
   />
 </div>
