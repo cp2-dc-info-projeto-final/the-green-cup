@@ -204,14 +204,23 @@ router.put('/:id', verifyToken, isAdmin, async function(req, res) {
       });
     }
     // Verificar se a notícia já está cadastrada
-    const existingOng = await pool.query('SELECT id FROM noticia WHERE manchete = $1 AND id != $2', [manchete, id]);
-    if (existingOng.rows.length > 0) {
+    const existingNews = await pool.query('SELECT id FROM noticia WHERE manchete = $1 AND id != $2', [manchete, id]);
+    if (existingNews.rows.length > 0) {
       // https status 409 - Conflict
       return res.status(409).json({
         success: false,
         message: 'Notícia já existe.'
       });
     }
+
+    let query, params;
+    
+    if (req.body !== '') {
+      query = 'UPDATE news SET manchete = $1, data = $2, img = $3, autor = $4 WHERE id = $5 RETURNING manchete, data, img, autor';
+      params = [manchete, data, img, autor, id];
+    } 
+    
+    const result = await pool.query(query, params);
 
     res.json({
       success: true,

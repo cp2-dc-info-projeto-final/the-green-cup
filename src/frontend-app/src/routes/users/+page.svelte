@@ -2,9 +2,7 @@
   import { onMount } from 'svelte';
   import { Heading, P, ImagePlaceholder } from "flowbite-svelte";
   import UsersTable from '../../components/UsersTable.svelte';
-  import { UserAddOutline } from 'flowbite-svelte-icons';
   import { goto } from '$app/navigation';
-  import { Search, Button } from 'flowbite-svelte';
   import Menu from '../../components/Menu.svelte';
   import { getCurrentUser } from '$lib/auth';
 

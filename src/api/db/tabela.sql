@@ -8,6 +8,7 @@ CREATE TABLE usuario (
     nome text NOT NULL,
     email text NOT NULL,
     senha text NOT NULL,
+    img text NOT NULL,
     role text NOT NULL DEFAULT 'user',
 
     
@@ -40,12 +41,9 @@ CREATE TABLE ongs(
 CREATE TABLE comentario(
     id bigint GENERATED ALWAYS AS IDENTITY,
     id_usuario integer NOT NULL,
-    data DATE NOT NULL,
-    likes bigint,
-    deslike bigint,
+    likes BOOLEAN,
     texto text NOT NULL,
-    criacao TIMESTAMP DEFAULT NOW(),
-    atualizacao TIMESTAMP DEFAULT NOW(),
+    data TIMESTAMP DEFAULT NOW(),
     FOREIGN KEY (id_usuario) REFERENCES usuario(id),
 
     CONSTRAINT pk_comentario PRIMARY KEY (id)
@@ -53,6 +51,7 @@ CREATE TABLE comentario(
 CREATE TABLE noticias(
     id bigint GENERATED ALWAYS AS IDENTITY,
     id_comentario integer,
+    titulo text NOT NULL,
     manchete text NOT NULL,
     data text NOT NULL,
     criacao TIMESTAMP DEFAULT NOW(),

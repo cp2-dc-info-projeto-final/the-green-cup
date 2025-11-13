@@ -168,7 +168,7 @@ router.post('/', verifyToken, isAdmin, async function(req, res) {
     // http status 201 - Created
     res.status(201).json({
       success: true,
-      message: 'ONG cadastrada com sucesso',
+      message: 'ONG cadastrada com sucesso.',
       data: result.rows[0]
     });
   } catch (error) {
@@ -183,7 +183,7 @@ router.post('/', verifyToken, isAdmin, async function(req, res) {
     // http status 500 - Internal Server Error
     res.status(500).json({
       success: false,
-      message: 'Erro interno do servidor'
+      message: 'Erro interno do servidor.'
     });
   }
 });
@@ -200,7 +200,7 @@ router.put('/:id', verifyToken, isAdmin, async function(req, res) {
       // http status 400 - Bad Request
       return res.status(400).json({
         success: false,
-        message: 'Nome, link, objetivo e imagem são obrigatórios'
+        message: 'Nome, link, objetivo e imagem são obrigatórios.'
       });
     }
     
@@ -210,7 +210,7 @@ router.put('/:id', verifyToken, isAdmin, async function(req, res) {
       // http status 404 - Not Found
       return res.status(404).json({
         success: false,
-        message: 'ONG não encontrada'
+        message: 'ONG não encontrada.'
       });
     }
     // Verificar se a ong já está cadastrada
@@ -231,6 +231,15 @@ router.put('/:id', verifyToken, isAdmin, async function(req, res) {
         message: 'O link desta ONG já está sendo usado.'
       });
     }
+
+    let query, params;
+    
+    if (req.body !== '') {
+      query = 'UPDATE ongs SET nome = $1, link = $2, objetivo = $3, img = $4 WHERE id = $5 RETURNING nome, link, objetivo, img';
+      params = [nome, link, objetivo, img, id];
+    } 
+    
+    const result = await pool.query(query, params);
 
     res.json({
       success: true,
@@ -265,7 +274,7 @@ router.delete('/:id', verifyToken, isAdmin, async function(req, res) {
       // http status 404 - Not Found
       return res.status(404).json({
         success: false,
-        message: 'ONG não encontrada'
+        message: 'ONG não encontrada.'
       });
     }
     
