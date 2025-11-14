@@ -22,10 +22,10 @@ CREATE TABLE usuario (
     CONSTRAINT ck_usuario_role_valid CHECK (role IN ('admin', 'user')) -- tipos de usuário
 );
 
-INSERT INTO usuario (nome, email, senha, role) VALUES
+INSERT INTO usuario (nome, email, senha, img, role) VALUES
 -- senha efelantinho
-('hermenegildo', 'hermenegildo@email.com', '$2a$12$f2c.uHGHS4drfaz6HR870OLamkarD57kI.gkr4//Vbbp0vN9IrFfG', 'admin'),
-('zoroastra', 'zoroastra@email.com', '$2a$12$f2c.uHGHS4drfaz6HR870OLamkarD57kI.gkr4//Vbbp0vN9IrFfG', 'user');
+('hermenegildo', 'hermenegildo@email.com', '$2a$12$f2c.uHGHS4drfaz6HR870OLamkarD57kI.gkr4//Vbbp0vN9IrFfG', '', 'admin'),
+('zoroastra', 'zoroastra@email.com', '$2a$12$f2c.uHGHS4drfaz6HR870OLamkarD57kI.gkr4//Vbbp0vN9IrFfG', '', 'user');
 
 -- demais tabelas
 
@@ -51,7 +51,7 @@ CREATE TABLE comentario(
 CREATE TABLE noticias(
     id bigint GENERATED ALWAYS AS IDENTITY,
     id_comentario integer,
-    titulo text NOT NULL,
+    titulo text,
     manchete text NOT NULL,
     data text NOT NULL,
     criacao TIMESTAMP DEFAULT NOW(),

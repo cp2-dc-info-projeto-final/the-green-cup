@@ -41,7 +41,7 @@ function updateAuthStatus() {
         const res = await api.get(`/news?search=${pesquisa}`);
         
         if (!res.data.data || res.data.sucess || res.data.data.length === 0) {
-          erro = res.data.message || 'Nenhuma noticia encontrado.';
+          erro = res.data.message || 'Nenhuma noticia encontrada.';
           noticias = [];
           
           return;

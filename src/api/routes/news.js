@@ -94,7 +94,7 @@ router.get('/me', verifyToken, async function(req, res) {
 router.get('/:id', verifyToken, isAdmin, async function(req, res) {
   try {
     const { id } = req.params;
-    const result = await pool.query('SELECT id, manchete, data, img FROM noticias WHERE id = $1', [id]);
+    const result = await pool.query('SELECT id, titulo, manchete, data, img FROM noticias WHERE id = $1', [id]);
 
     if (result.rows.length === 0) {
       // http status 404 - Not Found
@@ -121,10 +121,10 @@ router.get('/:id', verifyToken, isAdmin, async function(req, res) {
 /* POST - Cadastrar nova notícia */
 router.post('/', verifyToken, isAdmin, async function(req, res) {
   try {
-    const { manchete, data, img, autor} = req.body;
+    const {titulo, manchete, data, img, autor} = req.body;
     
     // Validação básica
-    if (!manchete || !data || !img || !autor ) {
+    if (!titulo || !manchete || !data || !img || !autor ) {
       // http status 400 - Bad Request
       return res.status(400).json({
         success: false,
@@ -142,8 +142,8 @@ router.post('/', verifyToken, isAdmin, async function(req, res) {
     }
 
     const result = await pool.query(
-      'INSERT INTO noticias (manchete, data, img, autor) VALUES ($1, $2, $3, $4) RETURNING id, manchete, data, img, autor',
-      [manchete, data, img, autor]
+      'INSERT INTO noticias (titulo, manchete, data, img, autor) VALUES ($1, $2, $3, $4, $5) RETURNING id, titulo, manchete, data, img, autor',
+      [titulo, manchete, data, img, autor]
     );
     if(img){
       try{
@@ -182,10 +182,10 @@ router.post('/', verifyToken, isAdmin, async function(req, res) {
 router.put('/:id', verifyToken, isAdmin, async function(req, res) {
   try {
     const { id } = req.params;
-    const { manchete, data, img, autor} = req.body;
+    const {titulo, manchete, data, img, autor} = req.body;
     
     // Validação básica
-    if (!manchete || !data || !img || !autor) {
+    if (!titulo || !manchete || !data || !img || !autor) {
 
       // http status 400 - Bad Request
       return res.status(400).json({
@@ -216,7 +216,7 @@ router.put('/:id', verifyToken, isAdmin, async function(req, res) {
     let query, params;
     
     if (req.body !== '') {
-      query = 'UPDATE news SET manchete = $1, data = $2, img = $3, autor = $4 WHERE id = $5 RETURNING manchete, data, img, autor';
+      query = 'UPDATE news SET titulo = $1, manchete = $2, data = $3, img = $4, autor = $5 WHERE id = $6 RETURNING titulo, manchete, data, img, autor';
       params = [manchete, data, img, autor, id];
     } 
     

@@ -12,6 +12,7 @@
   type News = {
     id: number;
     id_comentario: number;
+    titulo: string;
     manchete: string;
     data: string;//tem que ver certinho essa parte!!!!!(existe uma função própria pra isso.)
     img: string;//mesmo da data
@@ -19,7 +20,7 @@
     autor: string;
   };
 
-  let noticias: News = { id: 0, id_comentario: 0, manchete: '', data: '', img: '', views: 0, autor: '' }; // dados do form
+  let noticias: News = { id: 0, id_comentario: 0, titulo: '', manchete: '', data: '', img: '', views: 0, autor: '' }; // dados do form
   let loading = false;
   let error = '';
   let thumbnail;
@@ -95,6 +96,11 @@ function handleFileChange(event) {
       {#if error}
         <div class="text-red-500 text-center">{error}</div>
       {/if}
+      <!-- Campo título -->
+      <div>
+        <Label for="titulo">Título</Label>
+        <Input id="titulo" bind:value={noticias.titulo} placeholder="Escreva o título" required class="mt-1" />
+      </div>
       <!-- Campo manchete -->
       <div>
         <Label for="manchete">Manchete</Label>
