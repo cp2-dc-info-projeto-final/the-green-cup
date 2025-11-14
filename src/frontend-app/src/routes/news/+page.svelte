@@ -10,6 +10,9 @@
     let user: User | null = null;
     let hasToken = false;
 
+
+//Tem que chamar a função na pesquisa
+
 // Verifica token sincronamente (instantâneo)
 function updateAuthStatus() {
     hasToken = getToken() !== null;
@@ -33,33 +36,33 @@ function updateAuthStatus() {
     let carregando = true;
 
     // Busca pela manchete
-    async function filtro(pesquisa: string) {
     
-      carregando = true;
-
-      try {
-        const res = await api.get(`/news?search=${pesquisa}`);
-        
-        if (!res.data.data || res.data.sucess || res.data.data.length === 0) {
-          erro = res.data.message || 'Nenhuma noticia encontrada.';
-          noticias = [];
-          
-          return;
-        }
-
-        noticias = res.data.data;
-        console.log(noticias);
-      } catch (e: any) {
-        console.error('Erro ao carregar noticias:', e);
-        erro = e.response?.data?.message || 'Erro ao carregar noticias';
-      } finally {
-        carregando = false;
-      }
-
-    }
+    
     onMount(async () => {
       updateAuthStatus();
 	  });
+
+  erro = '';
+  carregando = true;
+
+  onMount(async () => {
+  try {
+    const res = await api.get(`/news?search=${pesquisa}`);
+    if (!res.data.data || res.data.sucess || res.data.data.length === 0) {
+        erro = res.data.message || 'Nenhuma notícia encontrada.';
+        noticias = [];
+        
+        return;
+      }
+    noticias = res.data.data;
+    console.log(noticias);
+  } catch (e: any) {
+    console.error('Erro ao carregar noticias:', e);
+    erro = e.response?.data?.message || 'Erro ao carregar noticias';
+  } finally {
+    carregando = false;
+  }
+});
   </script>
 
   <svelte:head>
@@ -80,13 +83,29 @@ function updateAuthStatus() {
               class="border rounded px-3 py-2"
               placeholder="Pesquisar"
               bind:value={pesquisa}
-              on:submit={() => filtro(pesquisa)}
               required />
           </div>
           <div class="">
             <button
                 type="button"
-                on:click={() => filtro(pesquisa)} class="px-4 py-2 bg-green-700 transition delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110 hover:bg-green-600 text-white rounded-lg font-semibold shadow transition">
+                on:click={() => {
+                  try { 
+                    const res = api.get(`/news?search=${pesquisa}`);
+                    if (!res.data.data || res.data.sucess || res.data.data.length === 0) {
+                        erro = res.data.message || 'Nenhuma notícia encontrada.';
+                        noticias = [];
+                        
+                        return;
+                      }
+                    noticias = res.data.data;
+                    console.log(noticias);
+                  } catch (e: any) {
+                    console.error('Erro ao carregar noticias:', e);
+                    erro = e.response?.data?.message || 'Erro ao carregar noticias';
+                  } finally {
+                    carregando = false;
+                  }
+                }} class="px-4 py-2 bg-green-700 transition delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110 hover:bg-green-600 text-white rounded-lg font-semibold shadow transition">
                 Pesquisar
             </button>
           </div>
