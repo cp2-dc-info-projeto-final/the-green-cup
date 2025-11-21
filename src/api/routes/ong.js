@@ -10,6 +10,14 @@ router.get('/', async function(req, res, next) {
     const { search } = req.query;
     let busca = 'SELECT * FROM ongs';
     let parametros = [];
+
+    if(search)
+    {
+      busca += ' WHERE nome LIKE $1 OR objetivo LIKE $1';
+      parametros.push('%' + search + '%');
+    }
+    busca += ' ORDER BY id';
+    
     const result = await pool.query(busca, parametros);
       result.rows.map(async (ong) => {
         try {
@@ -24,13 +32,6 @@ router.get('/', async function(req, res, next) {
           return ong
         }
       })
-    
-    if(search)
-    {
-      busca += ' WHERE nome LIKE $1 OR objetivo LIKE $1';
-      parametros.push('%' + search + '%');
-    }
-    busca += ' ORDER BY id';
     res.json({
         success: true,
         data: result.rows

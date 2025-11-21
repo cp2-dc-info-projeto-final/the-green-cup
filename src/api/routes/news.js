@@ -10,6 +10,15 @@ router.get('/', async function(req, res, next) {
     const { search } = req.query;
     let busca = 'SELECT * FROM noticias';
     let parametros = [];
+
+    if(search)
+    {
+      busca += ' WHERE manchete LIKE $1 OR autor LIKE $1 OR titulo LIKE $1';
+      parametros.push('%' + search + '%');
+    }
+    busca += ' ORDER BY id';
+
+
     const result = await pool.query(busca, parametros);
       result.rows.map(async (noticias) => {
         try {
@@ -24,13 +33,6 @@ router.get('/', async function(req, res, next) {
           return noticias
         }
       })
-    
-    if(search)
-    {
-      busca += ' WHERE manchete LIKE $1 OR autor LIKE $1';
-      parametros.push('%' + search + '%');
-    }
-    busca += ' ORDER BY id';
     res.json({
         success: true,
         data: result.rows
