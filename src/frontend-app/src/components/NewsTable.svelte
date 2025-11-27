@@ -85,18 +85,18 @@ onMount(async () => {
   <div class="my-8 text-center text-gray-500">Nenhuma noticia encontrada.</div>
 {:else}
   <!-- Tabela (desktop) -->
-  <div class="flex flex-wrap p-6 gap-4 justify-center m-5">
+  <div class="flex flex-wrap p-6 gap-6 justify-center">
     {#each noticias as news}
-    <div class="max-w-sm w-full lg:max-w-full lg:flex justify-center">
-      <div class="h-48 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden border" style="background-image: url('{news.img}')" title="Woman holding a mug">
-      </div>
-      <div class="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
+    <div class="max-w-sm w-full lg:w-2/4 lg:flex justify-center">
+      <div class="border border-gray-400 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
+        <div class="h-48 lg:h-50 lg:w-90 lg:flex flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden border" style="background-image: url('{news.img}')" title="Woman holding a mug">
+        </div>
         <div class="mb-8">
           <p class="text-sm text-gray-600 flex items-center">
             <svg class="fill-current text-gray-500 w-3 h-3 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
               <path d="M4 8V6a6 6 0 1 1 12 0v2h1a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-8c0-1.1.9-2 2-2h1zm5 6.73V17h2v-2.27a2 2 0 1 0-2 0zM7 6v2h6V6a3 3 0 0 0-6 0z" />
             </svg>
-            Nós
+            Popular
           </p>
           <div class="text-gray-900 font-bold text-xl mb-2">{news.titulo}</div>
           <p class="text-gray-700 text-base">{news.manchete}</p>

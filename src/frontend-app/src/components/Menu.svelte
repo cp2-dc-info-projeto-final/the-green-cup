@@ -8,6 +8,20 @@
   
   let user: User | null = null;
   let hasToken = false;
+  
+  // Array com as rotas da navegação
+  const navItems = [
+    { path: '/casa', label: 'Home' },
+    { path: '/about', label: 'Sobre' },
+    { path: '/news', label: 'Notícias' },
+    { path: '/ongs', label: 'Ongs' },
+    { path: '/users', label: 'Usuários' }
+  ];
+
+  // Função para verificar se um item está ativo
+  function isActive(path: string): boolean {
+    return $page.url.pathname === path;
+  }
 
   // Verifica token sincronamente (instantâneo)
   function updateAuthStatus() {
@@ -57,20 +71,26 @@
     </NavBrand>
     <NavHamburger/>
     <NavUl>
-      <NavLi href="/" class="text-lg font-bold px-4 py-2 text-gray-300 dark:text-gray-400 hover:text-green-600 dark:hover:text-blue-500 rounded-lg">Home</NavLi>
-      <NavLi href="/about" class="text-lg font-bold px-4 py-2 text-gray-300 dark:text-gray-400 hover:text-green-600 dark:hover:text-blue-500 rounded-lg rounded-lg">Sobre</NavLi>
-      <NavLi href="/news" class="text-lg font-bold px-4 py-2 text-gray-300 dark:text-gray-400 hover:text-green-600 dark:hover:text-blue-500 rounded-lg">Notícias</NavLi>
-      <NavLi href="/ongs" class="text-lg font-bold px-4 py-2 text-gray-300 dark:text-gray-400 hover:text-green-600 dark:hover:text-blue-500 rounded-lg rounded-lg">Ongs</NavLi>
+      {#each navItems as item}
+        {#if item.path !== '/users' || (item.path === '/users' && hasToken && user && user.role === 'admin')}
+          <NavLi 
+            href={item.path} 
+            class="text-lg font-bold px-4 py-2 rounded-lg transition-colors duration-200 {isActive(item.path) 
+              ? 'text-green-600 dark:bg-green-800 dark:text-green-300' 
+              : 'text-gray-300 dark:text-gray-400 hover:text-green-600 dark:hover:text-green-300 dark:hover:bg-green-800/50'}"
+>
+            {item.label}
+          </NavLi>
+        {/if}
+      {/each}
+      
       {#if hasToken}
         {#if user} <!-- se existir usuário é porque conseguiu logar-->
-          {#if user.role === 'admin'} <!-- só exibe menu usuários para admin-->
-      <NavLi href="/users" class="text-lg font-bold px-4 py-2 text-gray-300 dark:text-gray-400 hover:text-green-600 dark:hover:text-blue-500 rounded-lg rounded-lg">Usuários</NavLi>
-          {/if}
           <NavLi>
             <div class="flex items-center">
               <span class="text-primary-500 dark:text-primary-400 px-4 py-2">Olá, {user.nome}</span>
               <button 
-                class="ml-2 px-3 py-1 bg-primary-600 hover:bg-primary-700 text-white rounded text-sm flex items-center gap-1"
+                class="ml-2 px-3 py-1 bg-primary-600 hover:bg-primary-700 text-white rounded text-sm flex items-center gap-1 transition-colors duration-200"
                 on:click={handleLogout}
               >
                 <ArrowRightToBracketOutline class="w-4 h-4" />
@@ -81,7 +101,14 @@
         {/if}
       {:else}
         <!-- se não tem token, exibe botão de login-->
-        <NavLi href="/login" class="text-lg font-bold px-4 py-2 text-gray-300 dark:text-gray-400 hover:text-green-600 dark:hover:text-blue-500 rounded-lg">Login</NavLi>
+        <NavLi 
+          href="/login" 
+          class="text-lg font-bold px-4 py-2 rounded-lg transition-colors duration-200 {isActive('/login') 
+            ? 'text-green-600 bg-green-100 dark:bg-green-800 dark:text-green-300' 
+            : 'text-gray-300 dark:text-gray-400 hover:text-green-600 dark:hover:text-green-300 hover:bg-green-50 dark:hover:bg-green-800/50'}"
+        >
+          Login
+        </NavLi>
       {/if}
     </NavUl>
   </Navbar>

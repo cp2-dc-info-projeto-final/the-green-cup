@@ -1,5 +1,5 @@
 <script lang="ts">
-    import Menu from '../components/Menu.svelte';
+    import Menu from '../../components/Menu.svelte';
  </script>
 <svelte:head>
     <title>Home - TheGreenCup</title>
@@ -7,7 +7,7 @@
  <Menu />
  
  
- <section class="md:bg-no-repeat md:bg-[url('https://wallpaper.forfun.com/fetch/ab/ab9affa34fc0acf3d589b4ad070c9287.jpeg')] md:bg-top md:bg-gray-700 md:bg-blend-multiply bg-[url('https://i0.wp.com/marcospaivafotografia.wordpress.com/wp-content/uploads/2017/10/045.jpg?w=586&h=390&ssl=1')] bg-center bg-no-repeat">
+ <section class="md:bg-no-repeat md:bg-[url('https://wallpaper.forfun.com/fetch/ab/ab9affa34fc0acf3d589b4ad070c9287.jpeg')] md:bg-top md:bg-gray-700 md:bg-blend-multiply bg-[url('https://img.freepik.com/fotos-gratis/jacare-selvagem-com-peixe-na-boca-no-habitat-natural-wild-brasil-vida-selvagem-brasileira-pantanal-selva-verde-natureza-sul-americana-e-selvagem-perigoso_475641-2227.jpg?semt=ais_hybrid&w=740&q=80')] bg-center bg-no-repeat">
      <div class="px-4 mx-auto max-w-3/4 text-center py-30 lg:py-56">
          <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-white md:text-5xl lg:text-6xl">Proteger a biodiversidade é o que nos une!</h1>
          <p class="mb-8 text-lg font-normal text-gray-300 lg:text-xl sm:px-16 lg:px-48">O nosso objetivo é conscientizar, proteger e preservar a nossa fauna e flora brasileira. Abrace essa causa :)</p>

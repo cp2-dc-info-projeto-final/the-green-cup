@@ -28,7 +28,7 @@ function updateAuthStatus() {
       user = null;
     }
   }
-
+  
   type Ong = {
     id: number;
     nome: string;
@@ -98,6 +98,14 @@ onMount(async () => {
 	});
 </script>
 
+<style>
+  .texto-minimo {
+    min-width: 300px; /* Define uma largura mínima */
+    word-wrap: break-word;
+    padding: 10px;
+  }
+</style>
+
 {#if loading}
   <div class="my-8 text-center text-gray-500">Carregando ongs...</div>
 {:else if erroComponenteFilho}
@@ -110,18 +118,18 @@ onMount(async () => {
   <!-- Tabela (desktop) -->
   <div class="flex flex-wrap p-6 gap-4 justify-center m-5">
     {#each ongs as ong}
-    <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 bg-white rounded-lg shadow-md overflow-hidden">
+    <div class="sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 bg-white rounded-lg shadow-md overflow-hidden">
       <div class="p-5">
         <h3 class="text-xl font-semibold text-gray-800 mb-2"><img src="{ong.img}" alt=""><a href="{ong.link}">{ong.nome}</a></h3>
-        <p class="text-gray-600">{ong.objetivo}</p>
+        <div class="text-gray-600 texto-minimo">{ong.objetivo}</div>
       </div>
       {#if hasToken}
             {#if user?.role === 'admin'} 
       <div>
-        <button title="Editar" on:click={() => goto(`/ongs/edit/${ong.id}`)}>
+        <button class="cursor-pointer" title="Editar" on:click={() => goto(`/ongs/edit/${ong.id}`)}>
           <UserEditOutline class="w-5 h-5 text-primary-500" />
         </button>
-        <button
+        <button class="cursor-pointer"
           title="Remover"
           on:click={() => openConfirm(ong.id)}
           disabled={deletingId === ong.id || loading}

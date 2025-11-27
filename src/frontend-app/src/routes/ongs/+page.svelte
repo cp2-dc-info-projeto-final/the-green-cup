@@ -103,9 +103,9 @@ onMount(async () => {
           required />
       </div>
       <div class="">
-        <button
+        <button 
             type="button"
-            on:click={() => filtro(pesquisa)} class="px-4 py-2 bg-green-700 transition delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110 hover:bg-green-600 text-white rounded-lg font-semibold shadow transition">
+            on:click={() => filtro(pesquisa)} class="px-4 py-2 bg-green-700 delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110 hover:bg-green-600 text-white rounded-lg font-semibold shadow transition cursor-pointer">
             Pesquisar
         </button>
       </div>
@@ -113,7 +113,7 @@ onMount(async () => {
     {#if hasToken}
         {#if user?.role === 'admin'} <!-- só exibe botão criar para admin --> 
         <div class="row-start-1 row-end-4 gap-2 pt-6">
-        <button class="gap-2 px-4 py-2  bg-green-700 transition delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110 hover:bg-green-600 text-white rounded-lg font-semibold" on:click={() => goto('/ongs/new')}>
+        <button class="gap-2 px-4 py-2  bg-green-700 transition delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110 hover:bg-green-600 text-white rounded-lg font-semibold cursor-pointer" on:click={() => goto('/ongs/new')}>
           Adicionar
         </button>
         </div>
