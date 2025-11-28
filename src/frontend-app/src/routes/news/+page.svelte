@@ -34,7 +34,7 @@ function updateAuthStatus() {
 
   // Busca pela manchete
   async function filtro(pesquisa: string) {
-  
+    erro =''
     carregando = true;
 
     try {
@@ -46,7 +46,7 @@ function updateAuthStatus() {
         
         return;
       }
-
+      
       noticias = res.data.data;
       console.log(noticias);
     } catch (e: any) {
@@ -56,10 +56,10 @@ function updateAuthStatus() {
       carregando = false;
     }
 
-  }
-  onMount(async () => {
-    updateAuthStatus();
-  });
+    }
+    onMount(async () => {
+      updateAuthStatus();
+    });
 </script>
 
 <svelte:head>

@@ -21,7 +21,7 @@
       const result = await authLogin({ nome, password });
       
       if (result.success) {
-        goto('/');
+        goto('/home');
       } else {
         error = result.message || 'Credenciais inválidas';
       }

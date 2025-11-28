@@ -11,7 +11,7 @@
   
   // Array com as rotas da navegação
   const navItems = [
-    { path: '/casa', label: 'Home' },
+    { path: '/home', label: 'Home' },
     { path: '/about', label: 'Sobre' },
     { path: '/news', label: 'Notícias' },
     { path: '/ongs', label: 'Ongs' },
@@ -81,6 +81,7 @@
 >
             {item.label}
           </NavLi>
+  
         {/if}
       {/each}
       
@@ -104,8 +105,8 @@
         <NavLi 
           href="/login" 
           class="text-lg font-bold px-4 py-2 rounded-lg transition-colors duration-200 {isActive('/login') 
-            ? 'text-green-600 bg-green-100 dark:bg-green-800 dark:text-green-300' 
-            : 'text-gray-300 dark:text-gray-400 hover:text-green-600 dark:hover:text-green-300 hover:bg-green-50 dark:hover:bg-green-800/50'}"
+            ? 'text-green-600 dark:bg-green-800 dark:text-green-300' 
+            : 'text-gray-300 dark:text-gray-400 hover:text-green-600 dark:hover:bg-green-800/50'}"
         >
           Login
         </NavLi>

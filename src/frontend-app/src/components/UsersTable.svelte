@@ -2,7 +2,7 @@
   import { createEventDispatcher } from 'svelte';
   const dispatch = createEventDispatcher();
 
-  import { Table, TableHead, TableHeadCell, TableBody, TableBodyRow, TableBodyCell, Card, Badge } from 'flowbite-svelte';
+  import { Table, TableHead, TableHeadCell, TableBody, TableBodyRow, TableBodyCell, Card } from 'flowbite-svelte';
   import ConfirmModal from './ConfirmModal.svelte';
   import { UserEditOutline, TrashBinOutline } from 'flowbite-svelte-icons';
   import { goto } from '$app/navigation';
@@ -95,14 +95,15 @@ onMount(async () => {
       <TableBody>
         {#each users as user}
           <TableBodyRow>
-            <TableBodyCell>{user.id}</TableBodyCell>
-            <TableBodyCell>{user.nome}</TableBodyCell>
-            <TableBodyCell>{user.email}</TableBodyCell>
-            <TableBodyCell>
-              <button title="Editar" on:click={() => goto(`/users/edit/${user.id}`)}>
+            <TableBodyCell class="border">{user.id}</TableBodyCell>
+            <TableBodyCell class="border">{user.nome}</TableBodyCell>
+            <TableBodyCell class="border">{user.email}</TableBodyCell>
+            <TableBodyCell class="border">{user.role}</TableBodyCell>
+            <TableBodyCell class="border">
+              <button class="cursor-pointer" title="Editar" on:click={() => goto(`/users/edit/${user.id}`)}>
                 <UserEditOutline class="w-5 h-5 text-primary-500" />
               </button>
-              <button
+              <button class="cursor-pointer"
                 title="Remover"
                 on:click={() => openConfirm(user.id)}
                 disabled={deletingId === user.id || loading}
@@ -122,15 +123,15 @@ onMount(async () => {
       {#each users as user}
         <Card class="max-w-sm w-full p-0 overflow-hidden shadow-lg border border-gray-200">
           <div class="px-4 pt-4 pb-2 bg-gray-100 flex items-center justify-between">
-            <div>
-              <div class="text-lg font-semibold text-gray-800">{user.nome}</div>
+            <div class="">
+              <div class="text-lg font-semibold text-gray-800 text-center">{user.nome}</div>
               <div class="text-xs text-gray-400">ID: {user.id}</div>
             </div>
             <div class="flex gap-2">
-              <button title="Editar" on:click={() => goto(`/users/edit/${user.id}`)}>
+              <button class="border" title="Editar" on:click={() => goto(`/users/edit/${user.id}`)}>
                 <UserEditOutline class="w-5 h-5 text-primary-500" />
               </button>
-              <button
+              <button class="border"
                 title="Remover"
                 on:click={() => openConfirm(user.id)}
                 disabled={deletingId === user.id || loading}

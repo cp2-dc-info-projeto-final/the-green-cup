@@ -120,7 +120,8 @@ onMount(async () => {
     {#each ongs as ong}
     <div class="sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 bg-white rounded-lg shadow-md overflow-hidden">
       <div class="p-5">
-        <h3 class="text-xl font-semibold text-gray-800 mb-2"><img src="{ong.img}" alt=""><a href="{ong.link}">{ong.nome}</a></h3>
+        <div class="h-50 bg-cover text-center overflow-hidden border" style="background-image: url('{ong.img}')" title="Woman holding a mug"><a href="{ong.link}"></a></div>
+        <div class="text-xl font-semibold"><p>{ong.nome}</p></div>
         <div class="text-gray-600 texto-minimo">{ong.objetivo}</div>
       </div>
       {#if hasToken}

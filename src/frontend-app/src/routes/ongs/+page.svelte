@@ -5,6 +5,7 @@ import OngsTable from '../../components/OngsTable.svelte';
 import { goto } from '$app/navigation';
 import Menu from '../../components/Menu.svelte';
 import { getCurrentUser, getToken, type User } from '$lib/auth';
+	import api from '$lib/api';
 
 let user: User | null = null;
 let hasToken = false;
@@ -57,23 +58,24 @@ async function filtro(pesquisa: string) {
   carregando = true;
 
   try {
-    const res = await fetch(`http://localhost:3000/ongs?search=${pesquisa}`);
-    const data = await res.json();
+    const res = await api.get(`http://localhost:3000/ongs?search=${pesquisa}`);
 
-    if (!data.success || !data.data || data.data.length === 0) {
-      erro = data.message || 'Nenhuma Ong encontrado.';
+    if (!res.data.success || !res.data.data || res.data.data.length === 0) {
+      erro = res.data.message || 'Nenhuma Ong encontrado.';
       ongs = [];
       
       return;
     }
 
-    ongs = data.data;
-  } catch (e) {
-    erro = 'Erro ao buscar Ongs.';
-    ongs = [];
+    ongs = res.data.data;
+    console.log(ongs);
+  } catch (e:any) {
+    console.error('Erro ao carregar ongs:', e);
+    erro = e.response?.data?.message || 'Erro ao buscar Ongs.';
   } finally {
     carregando = false;
   }
+
 }
 
 onMount(async () => {
