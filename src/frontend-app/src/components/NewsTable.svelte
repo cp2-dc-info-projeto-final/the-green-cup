@@ -3,9 +3,9 @@
   const dispatch = createEventDispatcher();
 
   import ConfirmModal from './ConfirmModal.svelte';
-  import CommentSection from './ComentTable.svelte'; // NOVO COMPONENTE
+  //import CommentSection from './ComentTable.svelte'; // NOVO COMPONENTE
   import { UserEditOutline, TrashBinOutline} from 'flowbite-svelte-icons';
-  import ChatBubbleOutline from 'flowbite-svelte-icons';
+  //import ChatBubbleOutline from 'flowbite-svelte-icons';
   import { goto } from '$app/navigation';
   import api from '$lib/api';
   import { onMount } from 'svelte';
@@ -107,7 +107,7 @@
       });
 
       // Se tiver backend, descomente:
-      // await api.post(`/news/${newsId}/comments`, { conteudo });
+      await api.post(`/news/${newsId}/comments`, { conteudo });
       
     } catch (error) {
       console.error('Erro ao adicionar comentário:', error);
@@ -187,7 +187,7 @@
             class="flex items-center space-x-1 text-gray-600 hover:text-blue-600 transition-colors"
             on:click={() => toggleComments(news.id)}
           >
-            <ChatBubbleOutline class="w-5 h-5" />
+            <!--<ChatBubbleOutline class="w-5 h-5" />-->
             <span class="text-sm">
               {news.comentarios?.length || 0} comentários
             </span>
@@ -197,10 +197,10 @@
         <!-- Seção de Comentários Expandida -->
         {#if expandedNewsId === news.id}
           <div class="mt-4 border-t border-gray-200 pt-4">
-            <CommentSection
+            <!--<CommentSection
               {news}
               onAddComment={(conteudo) => handleAddComment(news.id, conteudo)}
-            />
+            />-->
           </div>
         {/if}
       </div>
