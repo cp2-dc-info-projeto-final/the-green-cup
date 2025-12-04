@@ -271,7 +271,7 @@ router.put('/:id', verifyToken, isAdmin, async function(req, res) {
     }
     
     // Verificar se o login já está em uso por outro usuário
-    const existingUser = await pool.query('SELECT id FROM usuario WHERE nome = $1 AND id != $2', [login, id]);
+    const existingUser = await pool.query('SELECT id FROM usuario WHERE nome = $1 AND id != $2', [nome, id]);
     if (existingUser.rows.length > 0) {
       // https status 409 - Conflict
       return res.status(409).json({
