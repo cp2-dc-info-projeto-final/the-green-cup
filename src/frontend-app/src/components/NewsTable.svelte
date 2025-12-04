@@ -150,6 +150,9 @@ function updateAuthStatus() {
       loading = false;
     }
   });
+  onMount(async () => {
+      updateAuthStatus();
+	});
 </script>
 
 {#if loading}
