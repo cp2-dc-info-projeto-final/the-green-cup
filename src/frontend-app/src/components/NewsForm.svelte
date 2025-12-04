@@ -1,6 +1,6 @@
 <script lang="ts">
   // Formulário de usuário
-  import { Card, Button, Label, Input, Heading, Select } from 'flowbite-svelte'; // UI
+  import { Card, Button, Label, Input, Heading } from 'flowbite-svelte'; // UI
   import { onMount } from 'svelte'; // ciclo de vida
   import api from '$lib/api'; // API backend
   import { goto } from '$app/navigation'; // navegação
@@ -181,8 +181,7 @@ function triggerFileInput() {
             <!-- Área de upload quando não há imagem -->
             <div 
               on:click={triggerFileInput}
-              class="flex justify-center items-center h-40 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100 transition-colors mb-4"
-            >
+              class="flex justify-center items-center h-40 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100 transition-colors mb-4">
               <div class="text-center">
                 <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
                   <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3-3m0 0l-3-3m3 3V8M28 8h12a4 4 0 014 4v4m-32 0l-3-3m0 0l-3-3m3 3V8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
