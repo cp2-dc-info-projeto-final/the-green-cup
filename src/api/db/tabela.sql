@@ -8,7 +8,7 @@ CREATE TABLE usuario (
     nome text NOT NULL,
     email text NOT NULL,
     senha text NOT NULL,
-    img text NOT NULL,
+    img text,
     role text NOT NULL DEFAULT 'user',
 
     
