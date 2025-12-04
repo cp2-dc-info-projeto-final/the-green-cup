@@ -1,5 +1,4 @@
 import express from "express"
-import path from "path"
 import cors from "cors"
 import http from "http"
 import ImagesRoutes from './Routes/images.routes.js';
