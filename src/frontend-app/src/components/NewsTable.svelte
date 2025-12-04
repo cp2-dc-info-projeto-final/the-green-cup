@@ -9,6 +9,27 @@
   import { goto } from '$app/navigation';
   import api from '$lib/api';
   import { onMount } from 'svelte';
+  import { getCurrentUser, getToken, type User } from '$lib/auth';
+  
+  let user: User | null = null;
+  let hasToken = false;
+
+// Verifica token sincronamente (instantâneo)
+function updateAuthStatus() {
+    hasToken = getToken() !== null;
+    
+    // Se tem token, carrega dados do usuário em background
+    if (hasToken && !user) {
+      getCurrentUser().then(userData => {
+        user = userData;
+      }).catch(() => {
+        user = null;
+        hasToken = false;
+      });
+    } else if (!hasToken) {
+      user = null;
+    }
+  }
 
   type Comment = {  // NOVO TIPO
     id: number;
@@ -166,6 +187,8 @@
         
         <!-- Ações da Notícia -->
         <div class="flex justify-between items-center border-t border-gray-200 pt-3">
+          {#if hasToken}
+            {#if user?.role === 'admin'}
           <div class="flex space-x-3">
             <button class="cursor-pointer" 
               title="Editar" 
@@ -181,6 +204,11 @@
               <TrashBinOutline class="w-5 h-5 text-red-400" />
             </button>
           </div>
+          {/if}
+    {/if}
+  {#if erro}
+    <div class="text-red-500 my-4">{erro}</div>
+  {/if}
           
           <!-- Botão de Comentários -->
           <button

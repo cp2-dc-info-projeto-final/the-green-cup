@@ -2,6 +2,7 @@
   import { Card, Button, Input, Label, Alert } from "flowbite-svelte";
   import { goto } from "$app/navigation";
   import { login as authLogin } from "$lib/auth";
+  import Menu from '../../components/Menu.svelte';
   
   let nome = '';
   let password = '';
@@ -39,7 +40,7 @@
 <svelte:head>
   <title>Login - TheGreenCup</title>
 </svelte:head>
-
+<Menu />
 <div class="h-screen flex flex-col items-center justify-center bg-gray-50 p-4">
   <div class="w-full max-w-sm">
     <h2 class="text-center text-3xl font-extrabold text-gray-900 mb-6">

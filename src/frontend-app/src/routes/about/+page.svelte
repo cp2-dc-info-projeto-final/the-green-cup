@@ -1,11 +1,12 @@
 <script lang="ts">
     import {Heading} from "flowbite-svelte";
+    import Menu from '../../components/Menu.svelte';
 </script>
 
 <svelte:head>
   <title>Sobre - TheGreenCup</title>
 </svelte:head>
-
+<Menu />
 <div>
     <div class="text-center pt-32">
         <Heading tag="h1" class=" pb-4 text-4xl font-extrabold tracking-tight text-gray-900 dark:text-white">Sobre</Heading>
