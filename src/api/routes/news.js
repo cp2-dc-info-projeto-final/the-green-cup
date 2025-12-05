@@ -206,7 +206,7 @@ router.put('/:id', verifyToken, isAdmin, async function(req, res) {
       });
     }
     // Verificar se a notícia já está cadastrada
-    const existingNews = await pool.query('SELECT id FROM noticia WHERE manchete = $1 AND id != $2', [manchete, id]);
+    const existingNews = await pool.query('SELECT id FROM noticias WHERE manchete = $1 AND id != $2', [manchete, id]);
     if (existingNews.rows.length > 0) {
       // https status 409 - Conflict
       return res.status(409).json({
@@ -218,8 +218,8 @@ router.put('/:id', verifyToken, isAdmin, async function(req, res) {
     let query, params;
     
     if (req.body !== '') {
-      query = 'UPDATE news SET titulo = $1, manchete = $2, data = $3, img = $4, autor = $5 WHERE id = $6 RETURNING titulo, manchete, data, img, autor';
-      params = [manchete, data, img, autor, id];
+      query = 'UPDATE noticias SET titulo = $1, manchete = $2, data = $3, img = $4, autor = $5 WHERE id = $6 RETURNING titulo, manchete, data, img, autor';
+      params = [titulo, manchete, data, img, autor, id];
     } 
     
     const result = await pool.query(query, params);
