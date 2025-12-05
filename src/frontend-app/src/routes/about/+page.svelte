@@ -12,7 +12,7 @@
         <Heading tag="h1" class=" pb-4 text-4xl font-extrabold tracking-tight text-gray-900 dark:text-white">Sobre</Heading>
     </div>
     <div class="grid grid-flow-col justify-items-center ">
-        <img class="h-auto max-w-full rounded-lg shadow-xl md:w-5xl" src="https://primeirapagina.com.br/wp-content/uploads/2024/12/Capivara-dormindo.jpg" alt="image description">
+        <img class="h-auto max-w-full rounded-lg shadow-xl md:w-5xl" src="capivarao.webp" alt="image description">
     </div> 
 </div>
 

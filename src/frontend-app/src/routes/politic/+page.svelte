@@ -8,7 +8,7 @@
 
 <div class="flex grid md:">
     <div class="text-center pt-32">
-        <Heading tag="h1" class=" pb-4 text-4xl font-extrabold tracking-tight text-gray-900 dark:text-white">Politica de Privacidade</Heading>
+        <Heading tag="h1" class=" pb-4 text-4xl font-extrabold tracking-tight text-gray-900 dark:text-white">Política de Privacidade</Heading>
     </div>
     <div class="grid grid-flow-col justify-items-center md:">
         <img class="h-auto w-[900px] rounded-lg shadow-xl md:w-3xl" src="https://cdn.openart.ai/uploads/image_bMUI2wA9_1761339244266_raw.jpg" alt="image description">
