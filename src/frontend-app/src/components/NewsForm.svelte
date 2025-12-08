@@ -66,7 +66,7 @@ async function handleSubmit() {
     }
     goto('/news');
   } catch (e: any) {
-    error = e.response?.data?.message || 'Erro ao salvar notícia.';
+    error = e.response?.data?.message || 'Erro ao salvar notícia. Confere o tamanho da imagem (máx 10MB).';
   } finally {
     loading = false;
   }
@@ -210,7 +210,7 @@ function triggerFileInput() {
               <p class="font-medium">Arquivo selecionado:</p>
               <p class="truncate">{selectedFile.name}</p>
               <p class="text-xs text-gray-500 mt-1">
-                Tamanho: {(selectedFile.size / 1024).toFixed(0)} KB • 
+                Tamanho: {(selectedFile.size / 2048).toFixed(0)} MB • 
                 Tipo: {selectedFile.type}
               </p>
             </div>

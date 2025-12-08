@@ -64,7 +64,7 @@ async function handleSubmit() {
     }
     goto('/ongs');
   } catch (e: any) {
-    error = e.response?.data?.message || 'Erro ao salvar ong.';
+    error = e.response?.data?.message || 'Erro ao salvar ong. Confere o tamanho da imagem (máx 10MB).';
   } finally {
     loading = false;
   }
